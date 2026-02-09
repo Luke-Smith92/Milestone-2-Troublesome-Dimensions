@@ -1,0 +1,194 @@
+/* ===== Base & App Layout ===== */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+
+body{
+  font-family: Arial, sans-serif;
+  color: #fff;
+  /* Your site background (home/default) */
+  background: url('images/background-image.jpg') center/cover no-repeat fixed;
+}
+
+.container{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: clamp(320px, 95vw, 1100px);  /* stable centered app width */
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+.hidden{ display:none !important; }
+.center{ text-align:center; } .bold{ font-weight:700; }
+.small{ font-size:.9rem; } .muted{ opacity:.85; }
+
+/* ===== Navigation ===== */
+.main-nav{
+  display:grid;
+  grid-template-columns: 1fr auto 1fr; /* left / center / right */
+  align-items:center;
+  padding:12px 20px;
+  background: rgba(0,0,0,.55);
+  border-bottom: 2px solid rgba(255,255,255,.1);
+  position: sticky; top:0; z-index:50;
+}
+
+.main-nav h1{
+  margin:0;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  text-align:center;
+  justify-self:center;
+}
+
+.main-nav h1 a{
+  text-decoration:none;
+  background: linear-gradient(90deg, #8e2de2, #4a00e0, #00f5a0, #8e2de2);
+  background-size: 300% 300%;
+  background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  animation: dimensionShift 8s ease infinite;
+  font-weight:800;
+}
+
+@keyframes dimensionShift {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.nav-links{ display:flex; gap:14px; justify-self:end; align-items:center; }
+.nav-link{
+  text-decoration:none; padding:6px 12px; border-radius:8px;
+  color:#fff; font-weight:600; transition: background .2s ease;
+}
+.nav-link:hover{ background: rgba(255,255,255,.2); }
+.main-nav .coins{ margin-left:12px; font-weight:700; }
+
+/* ===== Section headers (inside views) ===== */
+.topbar{ display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; }
+.topbar h2{ margin:8px 0; justify-self:center; }
+.topbar .coins{ justify-self:end; font-weight:700; }
+
+/* ===== Buttons ===== */
+.btn{
+  padding:10px 16px; border:0; border-radius:10px; cursor:pointer;
+  background:#eee; color:#111; font-weight:600;
+}
+.btn:hover{ filter:brightness(.95); }
+.btn.primary{ background:#ffcb05; color:#2a75bb; }
+.cta-row{ display:none; }
+
+/* ===== Home hero ===== */
+#home{ flex:1 0 auto; }
+#portal-section{ height: clamp(360px, 62vh, 720px); position: relative; }
+
+/* Portal/Battle button */
+.cta-circle{
+  --size: clamp(96px, 14vw, 140px);
+  position: fixed; left:50%; top:50%; transform: translate(-50%,-50%);
+  z-index: 20;
+  width: var(--size); height: var(--size);
+  border-radius:50%; border:none; cursor:pointer;
+
+  background: radial-gradient(circle at 30% 30%, #2a75bb, #4a00e0, #00ffff);
+  background-size:200% 200%;
+  animation: portalPulse 6s ease infinite;
+
+  box-shadow: 0 0 25px rgba(0,255,255,.7), 0 0 50px rgba(0,180,255,.5);
+
+  display:flex; align-items:center; justify-content:center;
+
+  transition: transform .6s ease, box-shadow .6s ease;
+}
+.cta-circle:hover{
+  transform: translate(-50%,-50%) scale(2);
+  box-shadow: 0 0 60px rgba(0,255,255,1), 0 0 120px rgba(0,180,255,.9);
+}
+@keyframes portalPulse{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+.cta-text{
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  font-weight:700; text-transform:uppercase; letter-spacing:1px;
+  background: linear-gradient(90deg, #8e2de2, #4a00e0, #00f5a0, #8e2de2);
+  background-size: 300% 300%;
+  background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  animation: dimensionShift 8s ease infinite;
+}
+
+/* ===== Grid & generic card ===== */
+.grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin:16px 0 24px; }
+.card{
+  background: rgba(0,0,0,.35);
+  border-radius: 12px; padding: 12px; text-align:center;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.card img{ width:100%; height:220px; object-fit:cover; border-radius:10px; display:block; }
+.hp-bar{ height:10px; background:#333; border-radius:999px; margin-top:8px; overflow:hidden; }
+.hp-fill{ height:100%; width:100%; background: linear-gradient(90deg, #2ecc71, #27ae60); }
+
+/* ===== News footer (only on Home; JS hides elsewhere) ===== */
+#news-section{ margin-top:auto; padding:40px 0; background: rgba(0,0,0,.65); }
+.news-header{
+  font-size: clamp(1.2rem, 3.4vw, 2rem);
+  text-align:center; margin-bottom:20px; color:#ffcb05;
+  text-shadow: 0 0 8px rgba(255,255,0,.7), 0 0 14px rgba(0,255,255,.6);
+  animation: flicker 2s infinite;
+}
+@keyframes flicker{ 0%,100%{opacity:1} 45%{opacity:.9} 50%{opacity:.5} 55%{opacity:.9} }
+#news-container{ max-width:980px; margin:0 auto; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+
+.news-article{
+  width: 300px; height: 170px; padding: 16px; position: relative; overflow:hidden;
+  color:#111; border-radius:12px;
+  background: url('images/parchment.jpg') center/cover no-repeat;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25); transition: transform .25s ease;
+}
+.news-article:hover{ transform: scale(1.03); }
+.news-article h3{ margin:0 0 6px; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+.news-article .teaser{ font-style: italic; opacity:.85; }
+.news-article .full-text{ position:absolute; left:16px; right:16px; bottom:12px; margin:0; opacity:0; transition: opacity .25s ease; }
+.news-article:hover .full-text{ opacity:1; }
+
+/* ===== Forms ===== */
+.login-form{ max-width: 360px; margin: 24px auto; display:grid; gap:10px; }
+.login-form input{ padding:10px 12px; border-radius:8px; border:0; }
+
+/* ===== Battle view specific rules (image fit & layout) ===== */
+#battle .grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Fill the image area cleanly (no bars) */
+#battle .card img{
+  width: 100%;
+  height: clamp(200px, 28vw, 320px);
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+#battle .hp-bar{ margin-top: 8px; }
+
+@media (max-width: 900px){
+  #battle .grid{ grid-template-columns: 1fr; }
+}
+
+/* ===== Footer ===== */
+.site-footer{
+  background: rgba(0,0,0,.8);
+  backdrop-filter: blur(2px);
+  color: #fff;
+  text-align: center;
+  padding: 14px 8px;
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(255,255,255,.15);
+  margin-top: 18px;
+}
+.site-footer a{
+  color: #ffcb05;               /* matches your gold highlight */
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 6px;
+}
+.site-footer a:hover{ text-decoration: underline; }
