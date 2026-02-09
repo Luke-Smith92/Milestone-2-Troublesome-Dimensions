@@ -1,39 +1,36 @@
-/* ------------ Cards & Arena Backgrounds ------------- */
+/* ------------ Images Base ------------- */
 const IMG_BASE = "assets/images/";
 
-// Use the exact filenames you have in /assets/images
+/* ------------ Cards ------------- */
 const CARDS = [
-  { id:"darkelf",  name:"Dark Elf",  type:"Dark",      img:"Darkelf.jpg",            maxHp:110,
+  { id:"darkelf",  name:"Dark Elf",  type:"Dark", img:"Darkelf.jpg", maxHp:110,
     attacks:[ {name:"Shadow Dagger",power:18,accuracy:.95}, {name:"Night Veil",power:28,accuracy:.8} ] },
 
-  { id:"fire-dragon", name:"Fire Dragon", type:"Fire", img:"Fire dragon.jpg",        maxHp:130,
+  { id:"fire-dragon", name:"Fire Dragon", type:"Fire", img:"Fire dragon.jpg", maxHp:130,
     attacks:[ {name:"Flame Bite",power:22,accuracy:.90}, {name:"Inferno Burst",power:34,accuracy:.70} ] },
 
   { id:"lightning-drake", name:"Lightning Drake", type:"Lightning", img:"Lighting Drake.png", maxHp:120,
     attacks:[ {name:"Chain Spark",power:21,accuracy:.90}, {name:"Tempest",power:33,accuracy:.65} ] },
 
-  { id:"orc",    name:"Orc",    type:"Earth",   img:"Orc Jim-cooper.jpg",   maxHp:125,
+  { id:"orc", name:"Orc", type:"Earth", img:"Orc Jim-cooper.jpg", maxHp:125,
     attacks:[ {name:"Brutal Swing",power:20,accuracy:.92}, {name:"War Cry",power:28,accuracy:.80} ] },
 
-  { id:"troll",  name:"Troll",  type:"Earth",   img:"troll jcope.jpg",      maxHp:140,
+  { id:"troll", name:"Troll", type:"Earth", img:"troll jcope.jpg", maxHp:140,
     attacks:[ {name:"Club Smash",power:20,accuracy:.90}, {name:"Boulder Throw",power:30,accuracy:.75} ] },
 
-  { id:"wood-elf", name:"Wood Elf", type:"Nature", img:"woodelf.jpg",       maxHp:105,
+  { id:"wood-elf", name:"Wood Elf", type:"Nature", img:"woodelf.jpg", maxHp:105,
     attacks:[ {name:"Arrow Volley",power:19,accuracy:.93}, {name:"Vine Snare",power:27,accuracy:.82} ] },
 
-  // IMPORTANT: this must match your actual file.
-  // Your folder screenshot shows: "paladin jimmy f.png"
-  { id:"paladin", name:"Paladin", type:"Light", img:"paladin jimmy f.png",  maxHp:115,
+  { id:"paladin", name:"Paladin", type:"Light", img:"paladin jimmy f.png", maxHp:115,
     attacks:[ {name:"Smite",power:20,accuracy:.92}, {name:"Holy Nova",power:31,accuracy:.72} ] },
 ];
 
 const ARENA_BACKGROUNDS = [
   "misty forest.jpg",
   "vulcanic-landscape-7492624_1920.jpg",
-  "Mystic-mountains arena.jpg",     // fixed spelling to match your folder
+  "Mystic-mountains arena.jpg",
   "castle-7696633_1920.jpg",
-  "waterfalls-4207893_1920.jpg",
-  // "city-wall-8752954_1920.jpg"    // remove or add the file if you really have it
+  "waterfalls-4207893_1920.jpg"
 ];
 
 /* Packs for ownership */
@@ -53,8 +50,8 @@ let DEFAULT_BG = "";
 let save = loadSave();
 
 function loadSave(){
-  const s = JSON.parse(localStorage.getItem("aca-save")||"null");
-  if (s && s.version===1) return s;
+  const s = JSON.parse(localStorage.getItem("aca-save") || "null");
+  if (s && s.version === 1) return s;
   const fresh = { version:1, coins:300, ownedPacks:["demo","starter"] };
   localStorage.setItem("aca-save", JSON.stringify(fresh));
   return fresh;
@@ -76,9 +73,12 @@ function show(id){
   views.forEach(v => $(v)?.classList.add("hidden"));
   $(id)?.classList.remove("hidden");
 
+  // show news only on home
   $("news-section")?.classList.toggle("hidden", id !== "home");
 
+  // restore background when not in battle
   if (id !== "battle") restoreBackground();
+
   updateCoinsUI();
 }
 
@@ -94,7 +94,7 @@ function restoreBackground(){
 /* --------- Home → Select --------- */
 function enterArena(){
   renderSelect();
-  show('select');
+  show("select");
 }
 
 /* --------- Select (choose your card) --------- */
@@ -116,8 +116,8 @@ function renderSelect(){
       <h4>${card.name}</h4>
       <img src="${IMG_BASE}${card.img}" alt="${card.name}">
       <div class="muted">${card.type} • HP ${card.maxHp}</div>
-      <button class="btn ${owned?'primary':''}" ${owned?'':'disabled'}>
-        ${owned ? 'Pick & Battle' : 'Locked'}
+      <button class="btn ${owned ? "primary" : ""}" ${owned ? "" : "disabled"}>
+        ${owned ? "Pick & Battle" : "Locked"}
       </button>
     `;
     div.querySelector("button").onclick = ()=> owned && startBattle(card.id);
@@ -129,9 +129,9 @@ function renderSelect(){
 let battle = null;
 
 function startBattle(playerId){
-  const player = JSON.parse(JSON.stringify(getCard(playerId)));
+  const player = structuredClone(getCard(playerId));
   const aiPool  = CARDS.filter(c=>c.id!==playerId);
-  const ai = JSON.parse(JSON.stringify(rand(aiPool)));
+  const ai = structuredClone(rand(aiPool));
 
   battle = { player, ai, pHp:player.maxHp, aHp:ai.maxHp, locked:false };
 
@@ -142,6 +142,7 @@ function startBattle(playerId){
 
 function renderBattle(){
   const {player, ai} = battle;
+
   $("playerZone").innerHTML = cardBattleHtml("You", player, "playerHp");
   $("aiZone").innerHTML     = cardBattleHtml("AI",  ai,     "aiHp");
   updateHpBars();
@@ -155,6 +156,7 @@ function renderBattle(){
     b.onclick = () => playerTurn(i);
     row.appendChild(b);
   });
+
   $("resultText").textContent = "";
 }
 
@@ -170,30 +172,39 @@ function cardBattleHtml(label, card, hpId){
 }
 
 function updateHpBars(){
-  $("playerHp").style.width = `${(battle.pHp / battle.player.maxHp)*100}%`;
-  $("aiHp").style.width     = `${(battle.aHp / battle.ai.maxHp)*100}%`;
+  $("playerHp").style.width = `${(battle.pHp / battle.player.maxHp) * 100}%`;
+  $("aiHp").style.width     = `${(battle.aHp / battle.ai.maxHp) * 100}%`;
 }
 
 function playerTurn(i){
   if (battle.locked) return;
   battle.locked = true;
+
   const atk = battle.player.attacks[i];
-  if (Math.random() <= atk.accuracy) battle.aHp = Math.max(0, battle.aHp - atk.power);
+  if (Math.random() <= atk.accuracy) {
+    battle.aHp = Math.max(0, battle.aHp - atk.power);
+  }
+
   updateHpBars();
   if (checkEnd()) return;
+
   setTimeout(aiTurn, 700);
 }
 
 function aiTurn(){
   const atk = rand(battle.ai.attacks);
-  if (Math.random() <= atk.accuracy) battle.pHp = Math.max(0, battle.pHp - atk.power);
+  if (Math.random() <= atk.accuracy) {
+    battle.pHp = Math.max(0, battle.pHp - atk.power);
+  }
+
   updateHpBars();
   if (checkEnd()) return;
+
   battle.locked = false;
 }
 
 function checkEnd(){
-  if (battle.pHp<=0 || battle.aHp<=0){
+  if (battle.pHp <= 0 || battle.aHp <= 0){
     $("resultText").textContent =
       (battle.pHp<=0 && battle.aHp<=0) ? "It's a draw!" :
       (battle.pHp<=0) ? "You lose!" : "You win!";
@@ -206,38 +217,46 @@ function checkEnd(){
 function renderStore(){
   const wrap = $("packList");
   wrap.innerHTML = "";
+
   PACKS.forEach(p=>{
     const owned = save.ownedPacks.includes(p.id);
+
     const div = document.createElement("div");
     div.className = "card";
     div.innerHTML = `
       <h4>${p.name}</h4>
       <p class="muted">Contains: ${p.cards.map(id=>getCard(id).name).join(", ")}</p>
       <p class="muted">Price: ${p.price} 🪙</p>
-      <button class="btn ${owned ? '' : 'primary'}" ${owned ? 'disabled' : ''}>
-        ${owned ? 'Owned' : 'Buy'}
+      <button class="btn ${owned ? "" : "primary"}" ${owned ? "disabled" : ""}>
+        ${owned ? "Owned" : "Buy"}
       </button>
     `;
+
     const btn = div.querySelector("button");
     if (!owned){
       btn.onclick = ()=>{
         if (save.coins < p.price) { alert("Not enough coins!"); return; }
         save.coins -= p.price;
         save.ownedPacks.push(p.id);
-        persist(); updateCoinsUI(); renderStore();
+        persist();
+        updateCoinsUI();
+        renderStore();
       };
     }
+
     wrap.appendChild(div);
   });
 }
 
-/* --------- News (auto-rotate on Home) --------- */
+/* --------- News rotation --------- */
 function setupBreakingNews(){
   const wrap = $("news-container");
   if (!wrap) return;
+
   const cards = Array.from(wrap.querySelectorAll(".news-article"));
   const VISIBLE = 3;
-  let index = 0, timer;
+  let index = 0;
+  let timer;
 
   function layout(start=0){
     cards.forEach((card,i)=>{
@@ -247,15 +266,19 @@ function setupBreakingNews(){
       card.style.transition = "opacity .35s ease";
     });
   }
+
   function tick(){
     index = (index + 1) % cards.length;
     if (index > cards.length - VISIBLE) index = 0;
     layout(index);
   }
+
   function start(){ stop(); timer = setInterval(tick, 5000); }
   function stop(){ if (timer) clearInterval(timer); }
 
-  layout(0); start();
+  layout(0);
+  start();
+
   $("news-section")?.addEventListener("mouseenter", stop);
   $("news-section")?.addEventListener("mouseleave", start);
 }
@@ -264,16 +287,14 @@ function setupBreakingNews(){
 document.addEventListener("DOMContentLoaded", ()=>{
   DEFAULT_BG = getComputedStyle(document.body).background;
 
-  document.querySelector('#titleHome')?.addEventListener('click', (e)=>{
-    e.preventDefault(); show('home');
-  });
+  $("#titleHome")?.addEventListener("click", (e)=>{ e.preventDefault(); show("home"); });
 
-  document.querySelectorAll('.nav-link').forEach(link=>{
-    link.addEventListener('click', e=>{
+  document.querySelectorAll(".nav-link").forEach(link=>{
+    link.addEventListener("click", (e)=>{
       e.preventDefault();
-      const view = link.getAttribute('data-view');
-      if (view === 'select') renderSelect();
-      if (view === 'store')  renderStore();
+      const view = link.getAttribute("data-view");
+      if (view === "select") renderSelect();
+      if (view === "store") renderStore();
       show(view);
     });
   });
