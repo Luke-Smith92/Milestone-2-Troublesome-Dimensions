@@ -1,29 +1,39 @@
 /* ------------ Cards & Arena Backgrounds ------------- */
-// Use the exact filenames you have in /images
+const IMG_BASE = "assets/images/";
+
+// Use the exact filenames you have in /assets/images
 const CARDS = [
   { id:"darkelf",  name:"Dark Elf",  type:"Dark",      img:"Darkelf.jpg",            maxHp:110,
     attacks:[ {name:"Shadow Dagger",power:18,accuracy:.95}, {name:"Night Veil",power:28,accuracy:.8} ] },
+
   { id:"fire-dragon", name:"Fire Dragon", type:"Fire", img:"Fire dragon.jpg",        maxHp:130,
     attacks:[ {name:"Flame Bite",power:22,accuracy:.90}, {name:"Inferno Burst",power:34,accuracy:.70} ] },
+
   { id:"lightning-drake", name:"Lightning Drake", type:"Lightning", img:"Lighting Drake.png", maxHp:120,
     attacks:[ {name:"Chain Spark",power:21,accuracy:.90}, {name:"Tempest",power:33,accuracy:.65} ] },
+
   { id:"orc",    name:"Orc",    type:"Earth",   img:"Orc Jim-cooper.jpg",   maxHp:125,
     attacks:[ {name:"Brutal Swing",power:20,accuracy:.92}, {name:"War Cry",power:28,accuracy:.80} ] },
+
   { id:"troll",  name:"Troll",  type:"Earth",   img:"troll jcope.jpg",      maxHp:140,
     attacks:[ {name:"Club Smash",power:20,accuracy:.90}, {name:"Boulder Throw",power:30,accuracy:.75} ] },
+
   { id:"wood-elf", name:"Wood Elf", type:"Nature", img:"woodelf.jpg",       maxHp:105,
     attacks:[ {name:"Arrow Volley",power:19,accuracy:.93}, {name:"Vine Snare",power:27,accuracy:.82} ] },
-  { id:"paladin", name:"Paladin", type:"Light", img:"paladin.jpg",          maxHp:115,
+
+  // IMPORTANT: this must match your actual file.
+  // Your folder screenshot shows: "paladin jimmy f.png"
+  { id:"paladin", name:"Paladin", type:"Light", img:"paladin jimmy f.png",  maxHp:115,
     attacks:[ {name:"Smite",power:20,accuracy:.92}, {name:"Holy Nova",power:31,accuracy:.72} ] },
 ];
 
 const ARENA_BACKGROUNDS = [
   "misty forest.jpg",
   "vulcanic-landscape-7492624_1920.jpg",
-  "Mystic-mountains areana.jpg",
+  "Mystic-mountains arena.jpg",     // fixed spelling to match your folder
   "castle-7696633_1920.jpg",
   "waterfalls-4207893_1920.jpg",
-  "city-wall-8752954_1920.jpg"
+  // "city-wall-8752954_1920.jpg"    // remove or add the file if you really have it
 ];
 
 /* Packs for ownership */
@@ -39,7 +49,7 @@ const $ = id => document.getElementById(id);
 const rand = arr => arr[Math.floor(Math.random()*arr.length)];
 const coinEls = [ $("coinsHome"), $("coinsSelect"), $("coinsBattle"), $("coinsStore") ];
 
-let DEFAULT_BG = "";  // holds full background shorthand (image+position+size+attachment)
+let DEFAULT_BG = "";
 let save = loadSave();
 
 function loadSave(){
@@ -63,24 +73,19 @@ function updateCoinsUI(){ coinEls.forEach(el=>el && (el.textContent = save.coins
 
 /* --------- Router --------- */
 function show(id){
-  // hide all views
   views.forEach(v => $(v)?.classList.add("hidden"));
   $(id)?.classList.remove("hidden");
 
-  // show news only on home
   $("news-section")?.classList.toggle("hidden", id !== "home");
 
-  // restore background when not in battle
   if (id !== "battle") restoreBackground();
-
   updateCoinsUI();
 }
 
 /* --------- Background helpers --------- */
 function setArenaBackground(){
   const src = rand(ARENA_BACKGROUNDS);
-  // full shorthand preserves cover/fixed/center
-  document.body.style.background = `url('images/${src}') center/cover no-repeat fixed`;
+  document.body.style.background = `url('${IMG_BASE}${src}') center/cover no-repeat fixed`;
 }
 function restoreBackground(){
   if (DEFAULT_BG) document.body.style.background = DEFAULT_BG;
@@ -109,7 +114,7 @@ function renderSelect(){
     div.className = "card";
     div.innerHTML = `
       <h4>${card.name}</h4>
-      <img src="images/${card.img}" alt="${card.name}">
+      <img src="${IMG_BASE}${card.img}" alt="${card.name}">
       <div class="muted">${card.type} • HP ${card.maxHp}</div>
       <button class="btn ${owned?'primary':''}" ${owned?'':'disabled'}>
         ${owned ? 'Pick & Battle' : 'Locked'}
@@ -130,7 +135,7 @@ function startBattle(playerId){
 
   battle = { player, ai, pHp:player.maxHp, aHp:ai.maxHp, locked:false };
 
-  setArenaBackground();   // pick a random arena background
+  setArenaBackground();
   renderBattle();
   show("battle");
 }
@@ -157,7 +162,7 @@ function cardBattleHtml(label, card, hpId){
   return `
     <div class="card">
       <h4>${label}</h4>
-      <img src="images/${card.img}" alt="${card.name}">
+      <img src="${IMG_BASE}${card.img}" alt="${card.name}">
       <div>${card.name}</div>
       <div class="hp-bar"><div id="${hpId}" class="hp-fill"></div></div>
     </div>
@@ -257,15 +262,12 @@ function setupBreakingNews(){
 
 /* --------- Init --------- */
 document.addEventListener("DOMContentLoaded", ()=>{
-  // Keep the FULL background shorthand so we can restore it exactly
   DEFAULT_BG = getComputedStyle(document.body).background;
 
-  // Title acts as Home
   document.querySelector('#titleHome')?.addEventListener('click', (e)=>{
     e.preventDefault(); show('home');
   });
 
-  // Nav links
   document.querySelectorAll('.nav-link').forEach(link=>{
     link.addEventListener('click', e=>{
       e.preventDefault();
@@ -276,10 +278,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
   });
 
-  // Portal Battle button -> My Cards
   $("shimmerCta")?.addEventListener("click", enterArena);
 
-  // View buttons
   $("selectBackBtn")?.addEventListener("click", ()=> show("home"));
   $("battleHomeBtn")?.addEventListener("click", ()=> show("home"));
   $("battleAgainBtn")?.addEventListener("click", ()=> show("select"));
