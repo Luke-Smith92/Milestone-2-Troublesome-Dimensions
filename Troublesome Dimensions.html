@@ -6,16 +6,17 @@
   <title>Troublesome Dimensions</title>
   <link rel="stylesheet" href="./assets/style.css">
   <script src="./assets/script.js" defer></script>
-
 </head>
-<body>
 
+<body>
   <!-- NAV -->
   <nav class="main-nav" aria-label="Primary">
     <div></div>
+
     <h1 class="dimensional-title">
       <a href="#" id="titleHome" data-view="home">Troublesome Dimensions</a>
     </h1>
+
     <div class="nav-links">
       <a href="#" class="nav-link" data-view="select">My Cards</a>
       <a href="#" class="nav-link" data-view="store">Store</a>
@@ -25,14 +26,15 @@
   </nav>
 
   <!-- APP CONTAINER -->
-  <div class="container">
+  <main class="container">
 
     <!-- HOME -->
     <section id="home" class="view">
-      <div id="portal-section">
-        <button id="shimmerCta" class="cta-circle" aria-label="Battle">
-          <span class="cta-text">Battle</span>
+      <div class="home-hero" id="portal-section">
+        <button id="shimmerCta" class="cta-portal" aria-label="Enter the Portal">
+          <span class="cta-label">Battle</span>
         </button>
+        <p class="home-hint muted small">Enter the portal to choose your card and battle in the arena.</p>
       </div>
     </section>
 
@@ -54,9 +56,9 @@
         <div class="coins">🪙 <span id="coinsBattle">0</span></div>
       </header>
 
-      <div class="grid">
-        <div id="playerZone" class="card" aria-live="polite"></div>
-        <div id="aiZone" class="card" aria-live="polite"></div>
+      <div class="battle-grid">
+        <div id="playerZone" aria-live="polite"></div>
+        <div id="aiZone" aria-live="polite"></div>
       </div>
 
       <div class="spacer"></div>
@@ -97,10 +99,10 @@
     </section>
 
     <!-- NEWS -->
-    <footer id="news-section">
+    <footer id="news-section" class="news">
       <h2 class="news-header">Breaking News from the Multiverse</h2>
-      <div id="news-container">
 
+      <div id="news-container">
         <article class="news-article">
           <h3>Portal Rift Expands</h3>
           <p class="teaser">The dimensional tear has grown twice its size...</p>
@@ -136,24 +138,17 @@
           <p class="teaser">The Silver Keep prepares its knights...</p>
           <p class="full-text">High Marshal declares the realm must unite against rising darkness.</p>
         </article>
-
       </div>
     </footer>
 
-  </div><!-- /container -->
+  </main>
 
   <!-- SITE FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <p>© 2024 Troublesome Dimensions — Created by Luke Smith</p>
     <p>
-      <a href="mailto:youremail@example.com">Contact</a> ·
-      <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener">Twitter/X</a> ·
-      <a href="https://facebook.com/yourhandle" target="_blank" rel="noopener">Facebook</a> ·
-      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a> ·
       <a href="#attributions">Attributions</a>
     </p>
   </footer>
-
-  <script src="script.js" defer></script>
 </body>
 </html>
