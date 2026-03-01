@@ -24,7 +24,7 @@ body{
   font-family: Arial, sans-serif;
   color: var(--text);
 
-  /* MAIN BACKGROUND (CSS is in /assets, so use ./images/...) */
+  /* MAIN BACKGROUND */
   background: url("./images/background-image.jpg") center / cover no-repeat fixed;
 }
 
