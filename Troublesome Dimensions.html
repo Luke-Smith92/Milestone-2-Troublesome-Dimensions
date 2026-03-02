@@ -28,15 +28,29 @@
   <!-- APP CONTAINER -->
   <main class="container">
 
-    <!-- HOME -->
-    <section id="home" class="view">
-      <div class="home-hero" id="portal-section">
-        <button id="shimmerCta" class="cta-portal" aria-label="Enter the Portal">
-          <span class="cta-label">Battle</span>
-        </button>
-        <p class="home-hint muted small">Enter the portal to choose your card and battle in the arena.</p>
-      </div>
-    </section>
+   <!-- HOME -->
+<section id="home" class="view">
+  <div class="home-hero" id="portal-section">
+
+    <button id="shimmerCta"
+            class="cta-portal"
+            aria-label="Enter the Arena"
+            aria-describedby="portalHint">
+
+      <span class="cta-label">Enter</span>
+
+      <span class="portal-tooltip" id="portalHint">
+        Enter the arena to use your heroes to fight against the incursion.
+      </span>
+
+    </button>
+
+    <p class="home-hint muted small">
+      Choose your hero card, then battle the AI in the arena.
+    </p>
+
+  </div>
+</section>
 
     <!-- SELECT VIEW -->
     <section id="select" class="view hidden">
