@@ -401,13 +401,13 @@ a { color: inherit; }
 
 /* ===== News: compact cards that expand OVER content on hover ===== */
 
+./* ===== News: compact cards + overlay popover on hover (no layout push) ===== */
+
 .news{
   margin-top: 18px;
   padding: 14px 0;
   background: var(--panel);
   border-top: 1px solid rgba(255,255,255,.08);
-
-  /* key: don't let expanded cards create layout scroll */
   overflow: visible;
 }
 
@@ -420,13 +420,11 @@ a { color: inherit; }
   overflow: visible;
 }
 
-/* Compact by default */
+/* Compact card always stays the same size in the layout */
 .news-article{
   position: relative;
   width: min(320px, 92vw);
-
-  /* compact size */
-  height: 92px;
+  height: 92px;               /* fixed height = no pushing */
   padding: 12px;
   border-radius: 12px;
 
@@ -434,22 +432,16 @@ a { color: inherit; }
   background: url("./images/parchment.jpg") center / cover no-repeat;
   box-shadow: 0 8px 20px rgba(0,0,0,.25);
 
-  /* hide extra text when compact */
   overflow: hidden;
-
-  /* smooth pop-up */
-  transition: transform .18s ease, box-shadow .18s ease, height .18s ease;
-  transform-origin: center bottom;
   z-index: 1;
 }
 
-/* Title always visible */
 .news-article h3{
   margin: 0 0 6px;
   font-size: 1rem;
 }
 
-/* In compact mode: show only teaser, clamp it */
+/* Keep teaser visible, clamp it */
 .news-article .teaser{
   margin: 0;
   font-size: .9rem;
@@ -461,30 +453,42 @@ a { color: inherit; }
   overflow: hidden;
 }
 
-/* Hide full text when compact */
+/* Turn the full text into a POPOVER that appears BELOW the compact card */
 .news-article .full-text{
-  margin: 10px 0 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+
+  margin: 0;
+  padding: 12px;
+  border-radius: 12px;
+
+  background: rgba(0,0,0,.78);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 16px 40px rgba(0,0,0,.45);
+
   opacity: 0;
-  max-height: 0;
-  transition: opacity .12s ease;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity .15s ease, transform .15s ease;
+  z-index: 30;
 }
 
-/* On hover/focus: expand WITHOUT pushing layout (it expands visually) */
+/* Show popover on hover/focus, WITHOUT changing layout size */
 .news-article:hover,
 .news-article:focus-within{
-  height: 190px;              /* more readable */
-  transform: translateY(-18px) scale(1.06);
-  z-index: 20;
-
-  box-shadow: 0 16px 40px rgba(0,0,0,.45);
+  z-index: 25;
 }
 
-/* Reveal full text when expanded */
 .news-article:hover .full-text,
 .news-article:focus-within .full-text{
   opacity: 1;
-  max-height: 200px;
+  pointer-events: auto;
+  transform: translateY(0);
 }
+
 
 /* ===== Site Footer ===== */
 .site-footer{
