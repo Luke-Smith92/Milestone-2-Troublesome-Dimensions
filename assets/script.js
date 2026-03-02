@@ -3,32 +3,32 @@ const IMG_BASE = "assets/images/";
 
 /* ------------ Cards ------------- */
 const CARDS = [
-  { id:"darkelf",  name:"Dark Elf",  type:"Dark", img:"Darkelf.jpg", maxHp:110,
+  { id:"darkelf",  name:"Dark Elf",  type:"Dark", img:"darkelf.jpg", maxHp:110,
     attacks:[ {name:"Shadow Dagger",power:18,accuracy:.95}, {name:"Night Veil",power:28,accuracy:.8} ] },
 
-  { id:"fire-dragon", name:"Fire Dragon", type:"Fire", img:"Fire dragon.jpg", maxHp:130,
+  { id:"fire-dragon", name:"Fire Dragon", type:"Fire", img:"fire-dragon.jpg", maxHp:130,
     attacks:[ {name:"Flame Bite",power:22,accuracy:.90}, {name:"Inferno Burst",power:34,accuracy:.70} ] },
 
-  { id:"lightning-drake", name:"Lightning Drake", type:"Lightning", img:"Lighting Drake.png", maxHp:120,
+  { id:"lightning-drake", name:"Lightning Drake", type:"Lightning", img:"lighting-drake.png", maxHp:120,
     attacks:[ {name:"Chain Spark",power:21,accuracy:.90}, {name:"Tempest",power:33,accuracy:.65} ] },
 
-  { id:"orc", name:"Orc", type:"Earth", img:"Orc Jim-cooper.jpg", maxHp:125,
+  { id:"orc", name:"Orc", type:"Earth", img:"orc-jim-cooper.jpg", maxHp:125,
     attacks:[ {name:"Brutal Swing",power:20,accuracy:.92}, {name:"War Cry",power:28,accuracy:.80} ] },
 
-  { id:"troll", name:"Troll", type:"Earth", img:"troll jcope.jpg", maxHp:140,
+  { id:"troll", name:"Troll", type:"Earth", img:"troll-jcope.jpg", maxHp:140,
     attacks:[ {name:"Club Smash",power:20,accuracy:.90}, {name:"Boulder Throw",power:30,accuracy:.75} ] },
 
   { id:"wood-elf", name:"Wood Elf", type:"Nature", img:"woodelf.jpg", maxHp:105,
     attacks:[ {name:"Arrow Volley",power:19,accuracy:.93}, {name:"Vine Snare",power:27,accuracy:.82} ] },
 
-  { id:"paladin", name:"Paladin", type:"Light", img:"paladin jimmy f.png", maxHp:115,
+  { id:"paladin", name:"Paladin", type:"Light", img:"paladin-jimmy-f.png", maxHp:115,
     attacks:[ {name:"Smite",power:20,accuracy:.92}, {name:"Holy Nova",power:31,accuracy:.72} ] },
 ];
 
 const ARENA_BACKGROUNDS = [
-  "misty forest.jpg",
+  "misty-forest.jpg",
   "vulcanic-landscape-7492624_1920.jpg",
-  "Mystic-mountains arena.jpg",
+  "mystic-mountains-arena.jpg",
   "castle-7696633_1920.jpg",
   "waterfalls-4207893_1920.jpg"
 ];
