@@ -56,7 +56,11 @@ function loadSave(){
   localStorage.setItem("aca-save", JSON.stringify(fresh));
   return fresh;
 }
-function persist(){ localStorage.setItem("aca-save", JSON.stringify(save)); }
+
+function persist(){
+  localStorage.setItem("aca-save", JSON.stringify(save));
+}
+
 function ownedCardIds(){
   const set = new Set();
   save.ownedPacks.forEach(pid=>{
@@ -65,18 +69,20 @@ function ownedCardIds(){
   });
   return [...set];
 }
-function getCard(id){ return CARDS.find(c=>c.id===id); }
-function updateCoinsUI(){ coinEls.forEach(el=>el && (el.textContent = save.coins)); }
+
+function getCard(id){
+  return CARDS.find(c=>c.id===id);
+}
+
+function updateCoinsUI(){
+  coinEls.forEach(el => el && (el.textContent = save.coins));
+}
 
 /* --------- Router --------- */
 function show(id){
   views.forEach(v => $(v)?.classList.add("hidden"));
   $(id)?.classList.remove("hidden");
 
-  // show news only on home
-  $("news-section")?.classList.toggle("hidden", id !== "home");
-
-  // restore background when not in battle
   if (id !== "battle") restoreBackground();
 
   updateCoinsUI();
@@ -87,6 +93,7 @@ function setArenaBackground(){
   const src = rand(ARENA_BACKGROUNDS);
   document.body.style.background = `url('${IMG_BASE}${src}') center/cover no-repeat fixed`;
 }
+
 function restoreBackground(){
   if (DEFAULT_BG) document.body.style.background = DEFAULT_BG;
 }
@@ -97,7 +104,7 @@ function enterArena(){
   show("select");
 }
 
-/* --------- Select (choose your card) --------- */
+/* --------- Select --------- */
 function renderSelect(){
   const grid = $("selectGrid");
   grid.innerHTML = "";
@@ -120,6 +127,7 @@ function renderSelect(){
         ${owned ? "Pick & Battle" : "Locked"}
       </button>
     `;
+
     div.querySelector("button").onclick = ()=> owned && startBattle(card.id);
     grid.appendChild(div);
   });
@@ -130,7 +138,7 @@ let battle = null;
 
 function startBattle(playerId){
   const player = structuredClone(getCard(playerId));
-  const aiPool  = CARDS.filter(c=>c.id!==playerId);
+  const aiPool = CARDS.filter(c=>c.id!==playerId);
   const ai = structuredClone(rand(aiPool));
 
   battle = { player, ai, pHp:player.maxHp, aHp:ai.maxHp, locked:false };
@@ -144,12 +152,13 @@ function renderBattle(){
   const {player, ai} = battle;
 
   $("playerZone").innerHTML = cardBattleHtml("You", player, "playerHp");
-  $("aiZone").innerHTML     = cardBattleHtml("AI",  ai,     "aiHp");
+  $("aiZone").innerHTML = cardBattleHtml("AI", ai, "aiHp");
   updateHpBars();
 
   const row = $("attackRow");
   row.innerHTML = "";
-  player.attacks.forEach((atk,i)=>{
+
+  player.attacks.forEach((atk, i)=>{
     const b = document.createElement("button");
     b.className = "btn";
     b.textContent = `${atk.name} (${atk.power})`;
@@ -173,7 +182,7 @@ function cardBattleHtml(label, card, hpId){
 
 function updateHpBars(){
   $("playerHp").style.width = `${(battle.pHp / battle.player.maxHp) * 100}%`;
-  $("aiHp").style.width     = `${(battle.aHp / battle.ai.maxHp) * 100}%`;
+  $("aiHp").style.width = `${(battle.aHp / battle.ai.maxHp) * 100}%`;
 }
 
 function playerTurn(i){
@@ -206,8 +215,8 @@ function aiTurn(){
 function checkEnd(){
   if (battle.pHp <= 0 || battle.aHp <= 0){
     $("resultText").textContent =
-      (battle.pHp<=0 && battle.aHp<=0) ? "It's a draw!" :
-      (battle.pHp<=0) ? "You lose!" : "You win!";
+      (battle.pHp <= 0 && battle.aHp <= 0) ? "It's a draw!" :
+      (battle.pHp <= 0) ? "You lose!" : "You win!";
     return true;
   }
   return false;
@@ -235,7 +244,10 @@ function renderStore(){
     const btn = div.querySelector("button");
     if (!owned){
       btn.onclick = ()=>{
-        if (save.coins < p.price) { alert("Not enough coins!"); return; }
+        if (save.coins < p.price) {
+          alert("Not enough coins!");
+          return;
+        }
         save.coins -= p.price;
         save.ownedPacks.push(p.id);
         persist();
@@ -259,7 +271,7 @@ function setupBreakingNews(){
   let timer;
 
   function layout(start=0){
-    cards.forEach((card,i)=>{
+    cards.forEach((card, i)=>{
       const show = i >= start && i < start + VISIBLE;
       card.style.display = show ? "block" : "none";
       card.style.opacity = show ? 1 : 0;
@@ -273,21 +285,30 @@ function setupBreakingNews(){
     layout(index);
   }
 
-  function start(){ stop(); timer = setInterval(tick, 5000); }
-  function stop(){ if (timer) clearInterval(timer); }
+  function start(){
+    stop();
+    timer = setInterval(tick, 5000);
+  }
+
+  function stop(){
+    if (timer) clearInterval(timer);
+  }
 
   layout(0);
   start();
 
-  $("news-section")?.addEventListener("mouseenter", stop);
-  $("news-section")?.addEventListener("mouseleave", start);
+  document.querySelector(".news-panel")?.addEventListener("mouseenter", stop);
+  document.querySelector(".news-panel")?.addEventListener("mouseleave", start);
 }
 
 /* --------- Init --------- */
 document.addEventListener("DOMContentLoaded", ()=>{
   DEFAULT_BG = getComputedStyle(document.body).background;
 
-  $("#titleHome")?.addEventListener("click", (e)=>{ e.preventDefault(); show("home"); });
+  $("titleHome")?.addEventListener("click", (e)=>{
+    e.preventDefault();
+    show("home");
+  });
 
   document.querySelectorAll(".nav-link").forEach(link=>{
     link.addEventListener("click", (e)=>{
@@ -303,8 +324,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   $("selectBackBtn")?.addEventListener("click", ()=> show("home"));
   $("battleHomeBtn")?.addEventListener("click", ()=> show("home"));
-  $("battleAgainBtn")?.addEventListener("click", ()=> show("select"));
-  $("battleStoreBtn")?.addEventListener("click", ()=> { renderStore(); show("store"); });
+  $("battleAgainBtn")?.addEventListener("click", ()=> {
+    renderSelect();
+    show("select");
+  });
+  $("battleStoreBtn")?.addEventListener("click", ()=> {
+    renderStore();
+    show("store");
+  });
   $("storeBackBtn")?.addEventListener("click", ()=> show("home"));
   $("loginBackBtn")?.addEventListener("click", ()=> show("home"));
 
