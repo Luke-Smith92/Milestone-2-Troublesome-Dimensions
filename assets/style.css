@@ -399,9 +399,7 @@ a { color: inherit; }
   color: rgba(255,255,255,.65);
 }
 
-/* ===== News: compact cards that expand OVER content on hover ===== */
-
-./* ===== News: compact cards + overlay popover on hover (no layout push) ===== */
+/* ===== News: compact cards + overlay popover on hover (no layout push) ===== */
 
 .news{
   margin-top: 18px;
