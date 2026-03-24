@@ -141,7 +141,14 @@ function startBattle(playerId){
   const aiPool = CARDS.filter(c=>c.id!==playerId);
   const ai = structuredClone(rand(aiPool));
 
-  battle = { player, ai, pHp:player.maxHp, aHp:ai.maxHp, locked:false };
+  battle = { 
+  player, 
+  ai, 
+  pHp:player.maxHp, 
+  aHp:ai.maxHp, 
+  locked:false,
+  rewarded:false
+};
 
   setArenaBackground();
   renderBattle();
@@ -195,7 +202,30 @@ function playerTurn(i){
   }
 
   updateHpBars();
-  if (checkEnd()) return;
+  function checkEnd(){
+  if (battle.pHp <= 0 || battle.aHp <= 0){
+
+    if (battle.pHp <= 0 && battle.aHp <= 0) {
+      $("resultText").textContent = "It's a draw!";
+    } 
+    else if (battle.pHp <= 0) {
+      $("resultText").textContent = "You lose!";
+    } 
+    else {
+      // ✅ ONLY reward once
+      if (!battle.rewarded) {
+        save.coins += 50;
+        persist();
+        battle.rewarded = true;
+      }
+      $("resultText").textContent = "You win! +50 coins";
+    }
+
+    battle.locked = false;
+    return true;
+  }
+  return false;
+}
 
   setTimeout(aiTurn, 700);
 }
