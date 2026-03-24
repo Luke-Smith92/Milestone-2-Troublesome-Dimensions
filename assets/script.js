@@ -214,9 +214,22 @@ function aiTurn(){
 
 function checkEnd(){
   if (battle.pHp <= 0 || battle.aHp <= 0){
-    $("resultText").textContent =
-      (battle.pHp <= 0 && battle.aHp <= 0) ? "It's a draw!" :
-      (battle.pHp <= 0) ? "You lose!" : "You win!";
+
+    if (battle.pHp <= 0 && battle.aHp <= 0) {
+      $("resultText").textContent = "It's a draw!";
+    } 
+    else if (battle.pHp <= 0) {
+      $("resultText").textContent = "You lose!";
+    } 
+    else {
+      save.coins += 50;
+      persist();
+      $("resultText").textContent = "You win! +50 coins";
+    }
+
+    // Reset lock so the game remains interactive
+    battle.locked = false;
+
     return true;
   }
   return false;

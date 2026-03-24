@@ -124,6 +124,19 @@ The project was tested throughout development to ensure functionality and usabil
 
 ---
 
+## Bugs and Fixes
+
+### Battle System Lock Issue
+
+**Issue:**  
+After implementing the coin reward system, the battle controls stopped responding once a match ended. The user was unable to continue interacting with the game.
+
+**Cause:**  
+The battle state was controlled using a `locked` flag:
+
+```javascript
+battle.locked = true;
+
 ### Responsive Testing
 
 - Tested on different screen sizes  
