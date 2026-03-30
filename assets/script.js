@@ -27,10 +27,10 @@ const CARDS = [
 
 const ARENA_BACKGROUNDS = [
   "misty-forest.jpg",
-  "vulcanic-landscape-7492624_1920.jpg",
+  "vulcanic-landscape.jpg",
   "mystic-mountains-arena.jpg",
-  "castle-7696633_1920.jpg",
-  "waterfalls-4207893_1920.jpg"
+  "castle.jpg",
+  "waterfalls.jpg"
 ];
 
 /* Packs for ownership */
@@ -93,7 +93,6 @@ function setArenaBackground(){
   const src = rand(ARENA_BACKGROUNDS);
   document.body.style.background = `url('${IMG_BASE}${src}') center/cover no-repeat fixed`;
 }
-
 function restoreBackground(){
   if (DEFAULT_BG) document.body.style.background = DEFAULT_BG;
 }
