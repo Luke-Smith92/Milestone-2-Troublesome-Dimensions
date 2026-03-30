@@ -128,11 +128,20 @@ The project was tested throughout development to ensure functionality and usabil
 
 ### Battle System Lock Issue
 
-**Issue:**  
+**Issue/Cause:**  
 After implementing the coin reward system, the battle controls stopped responding once a match ended. The user was unable to continue interacting with the game.
-
-**Cause:**  
 The battle state was controlled using a `locked` flag:
+
+**Issue/Cause:**  
+### Bug: Battle Page Image Sizing
+- Images appeared too large and were partially cut off during battles
+- Issue caused by incorrect CSS selector not matching dynamically generated elements
+- Resolved by targeting `#battle .card img`
+- Updated styling to use `object-fit: contain` for proper scaling
+- Images now display consistently across all battle cards
+
+
+
 
 ```javascript
 battle.locked = true;
