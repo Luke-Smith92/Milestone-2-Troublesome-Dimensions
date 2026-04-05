@@ -197,10 +197,16 @@ To assess functionality, usability, and responsiveness, both manual and automate
 
 ![JS Validation](assets/images/screenshots/js-validation.png)
 
-- Code reviewed using VS Code linting tools  
-- ES6 syntax warnings (supported by modern browsers)  
-- Decimal formatting suggestions  
+JavaScript code was tested using **JSHint** to identify potential issues and improve code quality.
 
+The results showed:
+
+- No critical errors affecting functionality  
+- Warnings related to ES6 syntax (supported by modern browsers)  
+- Suggestions for decimal formatting (e.g. using 0.95 instead of .95)  
+- Minor compatibility notes for older JavaScript versions  
+
+These warnings do not impact the functionality of the application and were reviewed during development.
 
 ---
 
