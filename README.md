@@ -184,12 +184,23 @@ To assess functionality, usability, and responsiveness, both manual and automate
 
 ---
 
+## CSS Validation
+
+![CSS Validation](assets/images/screenshots/css-check.png)
+
+- No critical errors found  
+- Minor warnings related to modern CSS features  
+
+---
+
 ## JavaScript Validation
 
-![JS Warnings](assets/images/screenshots/js-validation.png)
+![JS Validation](assets/images/screenshots/js-validation.png)
 
-- ES6 syntax warnings (supported in modern browsers)  
+- Code reviewed using VS Code linting tools  
+- ES6 syntax warnings (supported by modern browsers)  
 - Decimal formatting suggestions  
+
 
 ---
 
