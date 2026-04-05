@@ -212,20 +212,36 @@ These warnings do not impact the functionality of the application and were revie
 
 ## Performance Testing
 
-### Mobile
+### Responsive Testing
+
+![Desktop View](assets/images/screenshots/pc-screen.png)
+
+- Layout tested across multiple screen sizes  
+- Mobile, tablet, and desktop compatibility confirmed  
+- No major layout breaks identified during testing  
+
+---
+
+### Mobile Performance
 
 ![Mobile Performance](assets/images/screenshots/mobile-performance.png)
 
-### Desktop
+---
+
+### Desktop Performance
 
 ![Desktop Performance](assets/images/screenshots/pc-performance.png)
 
-#### Results
+---
+
+### Results
 
 - Performance: 99 (Mobile) / 100 (Desktop)  
 - Accessibility: 100  
 - Best Practices: 100  
 - SEO: 90  
+
+The results demonstrate that the application is highly optimised, loads quickly, and performs consistently across both mobile and desktop devices.
 
 ---
 
@@ -239,15 +255,6 @@ These warnings do not impact the functionality of the application and were revie
 - Issue caused by incorrect CSS selector  
 - Fixed using `#battle .card img`  
 - Applied `object-fit: contain`  
-
----
-
-## Responsive Testing
-
-![Desktop View](assets/images/screenshots/pc-screen.png)
-
-- Layout tested across multiple screen sizes  
-- Mobile, tablet, and desktop compatibility confirmed  
 
 ---
 
