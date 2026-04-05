@@ -180,6 +180,36 @@ Decimal formatting was noted as a stylistic recommendation rather than a functio
 
 Where appropriate, values were updated to improve readability and follow best practices.
 
+
+## Performance Testing
+
+Performance testing was carried out using Google PageSpeed Insights on both mobile and desktop devices.
+
+### Results
+
+#### Mobile
+- Performance: 99
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 90
+
+#### Desktop
+- Performance: 100
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 90
+
+### Key Metrics
+
+- First Contentful Paint: 0.2s
+- Largest Contentful Paint: 0.2s
+- Total Blocking Time: 0ms
+- Cumulative Layout Shift: 0.048
+
+These results demonstrate that the application performs efficiently, loads quickly, and provides a smooth user experience across different devices.
+Performance optimisation was supported by efficient asset usage, responsive design techniques, and minimal reliance on external libraries.
+
+
 ## Bugs and Fixes
 
 ### Battle System Lock Issue
