@@ -257,6 +257,53 @@ The results demonstrate that the application is highly optimised, loads quickly,
 - Applied `object-fit: contain`  
 
 ---
+## Future Improvements
+
+There are several areas where this project could be expanded and enhanced in the future:
+
+### Gameplay Enhancements
+
+- Introduce a wider variety of hero cards with unique abilities, strengths, and weaknesses  
+- Add special abilities or status effects (e.g. poison, stun, healing) to increase strategy  
+- Implement a progression system where players can level up cards or unlock new content  
+
+---
+
+### Visual and Design Improvements
+
+- Upgrade card visuals from static 2D images to more immersive designs, such as animated or 3D-style elements  
+- Add visual effects during battles (e.g. attack animations, transitions, particle effects)  
+- Improve UI polish with smoother transitions and enhanced feedback for user actions  
+
+---
+
+### World Building and Lore
+
+- Expand the storyline of the multiverse with deeper lore and background for each faction or character  
+- Introduce a campaign or story mode to give players a sense of progression and purpose  
+- Add dynamic "Breaking News" updates tied to gameplay events  
+
+---
+
+### Technical Improvements
+
+- Implement a full user authentication system (login/register)  
+- Store user progress using a database instead of LocalStorage  
+- Improve code structure by modularising JavaScript into separate files  
+
+---
+
+### Feature Expansion
+
+- Add multiplayer functionality (player vs player battles)  
+- Expand the store system with more packs, upgrades, and items  
+- Introduce achievements or rewards to increase replayability  
+
+---
+
+These improvements would enhance both the user experience and the overall depth of the application, transforming it from a simple browser-based game into a more complete and engaging product.
+
+---
 
 ## Deployment
 
