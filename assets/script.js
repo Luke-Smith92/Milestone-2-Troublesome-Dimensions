@@ -158,7 +158,7 @@ function renderBattle(){
   const {player, ai} = battle;
 
   $("playerZone").innerHTML = cardBattleHtml("You", player, "playerHp");
-  $("aiZone").innerHTML = cardBattleHtml("AI", ai, "aiHp");
+  $("aiZone").innerHTML = cardBattleHtml("Invader", ai, "aiHp");
   updateHpBars();
 
   const row = $("attackRow");
