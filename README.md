@@ -124,6 +124,20 @@ The project was tested throughout development to ensure functionality and usabil
 
 ---
 
+### JavaScript Validation
+
+During development, JavaScript was checked using built-in linters within the development environment.
+
+A number of warnings were identified:
+
+- Use of modern ES6 syntax such as `const` and `let`
+- Decimal formatting warnings (e.g. `.95` instead of `0.95`)
+
+These warnings do not affect functionality, as modern browsers fully support ES6 syntax.  
+Decimal formatting was noted as a stylistic recommendation rather than a functional issue.
+
+Where appropriate, values were updated to improve readability and follow best practices.
+
 ## Bugs and Fixes
 
 ### Battle System Lock Issue
