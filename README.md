@@ -155,6 +155,16 @@ Using only manual testing would not highlight performance or code issues, while 
 
 By combining both approaches, the application was tested thoroughly to ensure it is functional, user-friendly, and performs well across different devices.
 ---
+## HTML Validation
+
+HTML code was tested using the W3C Markup Validation Service.
+
+The results showed no critical errors. A small number of informational messages and warnings were identified, including:
+
+- Use of trailing slashes on void elements (e.g. `<meta />`)
+- Redundant role attribute on the `<footer>` element
+
+These issues do not affect functionality but were reviewed and adjusted to follow best practices.
 
 ### JavaScript Validation
 
