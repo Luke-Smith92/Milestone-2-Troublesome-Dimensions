@@ -261,6 +261,68 @@ Overall, testing confirmed that the application is stable, responsive, and provi
 - Fixed using `#battle .card img`  
 - Applied `object-fit: contain`  
 
+## Bugs and Fixes
+
+### Battle Image Sizing Issue
+- Images appeared too large and were cut off during battles  
+- Issue caused by an incorrect CSS selector not matching the dynamically generated battle cards  
+- Fixed by targeting `#battle .card img`  
+- Applied `object-fit: contain` so the full character image displayed correctly  
+
+---
+
+### Battle Reward / Coin Issue
+- Winning battles was awarding the wrong number of coins  
+- Issue was caused by reward logic being triggered more than once  
+- Fixed by updating the battle end logic so coins are only awarded once per win  
+- Result: players now correctly receive the intended reward amount  
+
+---
+
+### Battle Controls Lock Issue
+- After a battle ended, the controls could stop responding  
+- Issue was caused by the battle `locked` state not being reset correctly  
+- Fixed by resetting the lock state once the battle result had been processed  
+- Result: the game remains interactive after each match  
+
+---
+
+### Background Overlay Issue
+- The arena background became too dark and reduced the vibrancy of the design  
+- Issue was caused by the JavaScript background styling overriding the CSS with a heavy overlay  
+- Fixed by removing the unnecessary dark overlay from the arena background  
+- Result: background images now appear brighter and more visually consistent  
+
+---
+
+### GitHub Pages Deployment Issue
+- The live site initially displayed the repository README instead of the project  
+- Issue was caused by the main HTML file not being named `index.html`  
+- Fixed by renaming the main file to `index.html` and redeploying through GitHub Pages  
+- Result: the correct homepage now loads from the live site  
+
+---
+
+### 404 / Login Page Repurposing
+- The login page did not fit the final project requirements and needed to function as a 404 page  
+- Issue was resolved by redesigning the section as a custom themed 404 page  
+- Added a return home button to improve navigation  
+- Result: invalid routes now display a themed error page consistent with the rest of the project
+
+---
+
+### HP Bar Calculation Issue
+
+- The health bar did not update correctly during battles  
+- Issue was caused by incorrect calculation of remaining HP percentages  
+- The width of the HP bar was not properly linked to the current HP values  
+- This resulted in the visual bar not matching the actual game state  
+
+- The issue was resolved by correctly calculating the percentage of remaining HP and updating the width dynamically using JavaScript  
+
+- Additional guidance from AI tools (ChatGPT) was used to help identify the calculation issue and improve understanding of the correct implementation
+- Result: HP bars now accurately reflect player and opponent health during battles  
+
 ---
 ## Future Improvements
 
