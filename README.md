@@ -107,21 +107,53 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 
 ---
 
-## Testing
+## Testing Procedures
 
-The project was tested throughout development to ensure functionality and usability.
+To assess the functionality, usability, and responsiveness of the web application, a combination of both manual and automated testing methods was used.
 
-### Functionality Testing
+### Manual Testing
 
-- Navigation between views works correctly  
-- Portal button correctly loads the game  
-- Card selection loads available cards  
-- Battle system calculates damage correctly  
-- AI responds correctly during battle  
-- HP bars update dynamically  
-- Store purchases update correctly  
-- Coins persist using local storage  
+Manual testing was carried out throughout development to ensure that all features worked as expected from a user perspective.
 
+This included:
+- Navigating between all pages (Home, Select, Battle, Store, Login/404)
+- Selecting cards and initiating battles
+- Testing attack functionality and HP reduction
+- Verifying win/loss conditions and coin rewards
+- Checking that buttons and navigation links respond correctly
+- Ensuring layouts remain usable across different screen sizes
+
+Manual testing was essential for identifying real user experience issues such as layout problems, button responsiveness, and gameplay flow.
+
+---
+
+### Automated Testing
+
+Automated testing tools were used to evaluate code quality and performance.
+
+These included:
+- Browser Developer Tools (Chrome DevTools)
+- Lighthouse performance testing
+- HTML and CSS validation tools
+
+These tools helped identify:
+- Performance improvements
+- Accessibility considerations
+- Code structure issues
+- Responsive layout behaviour
+
+---
+
+### Why Both Methods Were Used
+
+A combination of manual and automated testing was chosen because each method serves a different purpose.
+
+- Manual testing focuses on real user interaction and usability
+- Automated testing focuses on performance, code quality, and technical validation
+
+Using only manual testing would not highlight performance or code issues, while relying solely on automated tools would not fully test the user experience.
+
+By combining both approaches, the application was tested thoroughly to ensure it is functional, user-friendly, and performs well across different devices.
 ---
 
 ### JavaScript Validation
