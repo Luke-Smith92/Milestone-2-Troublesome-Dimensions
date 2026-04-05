@@ -197,11 +197,11 @@ To assess functionality, usability, and responsiveness, both manual and automate
 
 ### Mobile
 
-![Mobile Performance](assets/images/screenshots/mobile-speed.png)
+![Mobile Performance](assets/images/screenshots/mobile-performance.png)
 
 ### Desktop
 
-![Desktop Performance](assets/images/screenshots/pc-speed.png)
+![Desktop Performance](assets/images/screenshots/pc-performance.png)
 
 #### Results
 
