@@ -87,6 +87,12 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 - Attack buttons with damage values  
 - HP bar system for both player and opponent  
 
+### Scoring and Rewards
+
+- Winning a battle rewards the player with coins  
+- Coins can be used in the store to unlock additional card packs  
+- Losing a battle does not reward coins, encouraging strategic play  
+
 ---
 
 ### Store
@@ -131,7 +137,7 @@ Future development would include creating low-fidelity wireframes during the pla
 
 1. Click the **Enter portal** button on the homepage  
 2. Select a hero card from your available cards  
-3. Begin the battle against the opponent  
+3. Battles against a dynamic AI-controlled opponent 
 4. Click attack buttons to deal damage  
 5. Monitor health bars for both characters  
 6. Win by reducing the opponent's HP to zero  
@@ -241,8 +247,7 @@ These warnings do not impact the functionality of the application and were revie
 - Best Practices: 100  
 - SEO: 90  
 
-The results demonstrate that the application is highly optimised, loads quickly, and performs consistently across both mobile and desktop devices.
-
+Overall, testing confirmed that the application is stable, responsive, and provides a consistent user experience across different devices and screen sizes.
 ---
 
 ## Bugs and Fixes
@@ -311,6 +316,12 @@ This project is deployed using **GitHub Pages**.
 
 Live site:  
 https://luke-smith92.github.io/Troublesome-Dimensions/
+
+### How to Run Locally
+
+1. Clone the repository  
+2. Open the project folder in VS Code  
+3. Launch with Live Server or open `index.html` in a browser  
 
 ---
 
