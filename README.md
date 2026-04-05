@@ -1,6 +1,6 @@
 # Milestone-2-Troublesome-Dimensions
 
-![Am I Responsive](assets/images/am-i-responsive.png)
+![Am I Responsive](assets/images/screenshots/am-i-responsive.png)
 
 ---
 
@@ -8,7 +8,7 @@
 
 **Troublesome Dimensions** is an interactive browser-based fantasy card battle game. Players enter a fractured multiverse where dimensional rifts have unleashed creatures and heroes from different realms.
 
-The user selects a hero card and battles against an AI opponent using a simple turn-based combat system. Each card has unique attacks and health values, creating variation in gameplay.
+The user selects a hero card and battles against an opponent using a simple turn-based combat system. Each card has unique attacks and health values, creating variation in gameplay.
 
 This project focuses on building a strong front-end experience using **HTML, CSS, and JavaScript**, with clear structure, interactive gameplay, and responsive design.
 
@@ -59,29 +59,71 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 
 ## Features
 
-### Existing Features
+### Homepage
 
-- Homepage with lore explanation and clear call-to-action  
-- Interactive portal entry system  
-- Card selection screen  
-- Turn-based battle system  
-- Health (HP) bar mechanics  
-- AI opponent logic  
-- Coin system using local storage  
-- Store system (basic functionality)  
-- Breaking News panel for world-building and immersion  
-- Responsive layout for different screen sizes  
+![Home Page](assets/images/screenshots/home-page.png)
+
+- Lore-based introduction to the game  
+- Clear call-to-action portal  
+- Breaking News panel for immersion  
 
 ---
 
-### Future Features
+### Card Selection
 
-- User login system  
-- Save progress to a database  
-- Multiplayer battles  
-- Expanded card system with abilities/effects  
-- Sound effects and animations  
-- Improved store system with upgrades/items  
+![Card Selection](assets/images/screenshots/card-selection.png)
+
+- Displays available hero cards  
+- Locked/unlocked system  
+- Easy selection to start battle  
+
+---
+
+### Battle System
+
+![Battle Screen](assets/images/screenshots/battle-screen.png)
+
+- Turn-based combat  
+- Attack buttons with damage values  
+- HP bar system for both player and opponent  
+
+---
+
+### Store
+
+![Store](assets/images/screenshots/store.png)
+
+- Purchase card packs using coins  
+- Unlock new characters  
+
+---
+
+### 404 / Login Page
+
+![404 Page](assets/images/screenshots/login-404page.png)
+
+- Custom themed 404 page  
+- Keeps design consistent with the game  
+
+---
+
+## Wireframes
+
+Wireframes were not formally created for this project.  
+
+Instead, the layout and structure were designed directly in the browser using an iterative development approach. This allowed for continuous visual adjustments and improvements based on testing and usability.
+
+However, the design followed a clear structure:
+
+- Left panel: Game lore / introduction  
+- Center: Main portal interaction (call-to-action)  
+- Right panel: News / additional content  
+- Separate views for:
+  - Card selection  
+  - Battle screen  
+  - Store  
+
+Future development would include creating low-fidelity wireframes during the planning phase to better visualise layout and user flow before implementation.
 
 ---
 
@@ -89,10 +131,10 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 
 1. Click the **Enter portal** button on the homepage  
 2. Select a hero card from your available cards  
-3. Begin the battle against the AI opponent  
+3. Begin the battle against the opponent  
 4. Click attack buttons to deal damage  
 5. Monitor health bars for both characters  
-6. Win by reducing the AI's HP to zero  
+6. Win by reducing the opponent's HP to zero  
 7. Lose if your HP reaches zero  
 8. Return and try again with different strategies  
 
@@ -109,144 +151,86 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 
 ## Testing Procedures
 
-To assess the functionality, usability, and responsiveness of the web application, a combination of both manual and automated testing methods was used.
+To assess functionality, usability, and responsiveness, both manual and automated testing methods were used.
 
 ### Manual Testing
 
-Manual testing was carried out throughout development to ensure that all features worked as expected from a user perspective.
+![Mobile View](assets/images/screenshots/mobile-screen.png)
 
-This included:
-- Navigating between all pages (Home, Select, Battle, Store, Login/404)
-- Selecting cards and initiating battles
-- Testing attack functionality and HP reduction
-- Verifying win/loss conditions and coin rewards
-- Checking that buttons and navigation links respond correctly
-- Ensuring layouts remain usable across different screen sizes
-
-Manual testing was essential for identifying real user experience issues such as layout problems, button responsiveness, and gameplay flow.
+- Navigation between all views  
+- Card selection and battle flow  
+- Attack functionality and HP updates  
+- Win/loss conditions and coin rewards  
+- Button responsiveness  
+- Mobile and tablet layout testing  
 
 ---
 
 ### Automated Testing
 
-Automated testing tools were used to evaluate code quality and performance.
-
-These included:
-- Browser Developer Tools (Chrome DevTools)
-- Lighthouse performance testing
-- HTML and CSS validation tools
-
-These tools helped identify:
-- Performance improvements
-- Accessibility considerations
-- Code structure issues
-- Responsive layout behaviour
+- Chrome DevTools  
+- Lighthouse  
+- HTML Validator  
+- CSS Validator  
 
 ---
 
-### Why Both Methods Were Used
-
-A combination of manual and automated testing was chosen because each method serves a different purpose.
-
-- Manual testing focuses on real user interaction and usability
-- Automated testing focuses on performance, code quality, and technical validation
-
-Using only manual testing would not highlight performance or code issues, while relying solely on automated tools would not fully test the user experience.
-
-By combining both approaches, the application was tested thoroughly to ensure it is functional, user-friendly, and performs well across different devices.
----
 ## HTML Validation
 
-HTML code was tested using the W3C Markup Validation Service.
+![HTML Validation](assets/images/screenshots/html-check.png)
 
-The results showed no critical errors. A small number of informational messages and warnings were identified, including:
+- No critical errors  
+- Minor warnings reviewed and corrected where appropriate  
 
-- Use of trailing slashes on void elements (e.g. `<meta />`)
-- Redundant role attribute on the `<footer>` element
+---
 
-These issues do not affect functionality but were reviewed and adjusted to follow best practices.
+## JavaScript Validation
 
-### JavaScript Validation
+![JS Warnings](assets/images/screenshots/js-validation.png)
 
-During development, JavaScript was checked using built-in linters within the development environment.
+- ES6 syntax warnings (supported in modern browsers)  
+- Decimal formatting suggestions  
 
-A number of warnings were identified:
-
-- Use of modern ES6 syntax such as `const` and `let`
-- Decimal formatting warnings (e.g. `.95` instead of `0.95`)
-
-These warnings do not affect functionality, as modern browsers fully support ES6 syntax.  
-Decimal formatting was noted as a stylistic recommendation rather than a functional issue.
-
-Where appropriate, values were updated to improve readability and follow best practices.
-
+---
 
 ## Performance Testing
 
-Performance testing was carried out using Google PageSpeed Insights on both mobile and desktop devices.
+### Mobile
 
-### Results
+![Mobile Performance](assets/images/screenshots/mobile-speed.png)
 
-#### Mobile
-- Performance: 99
-- Accessibility: 100
-- Best Practices: 100
-- SEO: 90
+### Desktop
 
-#### Desktop
-- Performance: 100
-- Accessibility: 100
-- Best Practices: 100
-- SEO: 90
+![Desktop Performance](assets/images/screenshots/pc-speed.png)
 
-### Key Metrics
+#### Results
 
-- First Contentful Paint: 0.2s
-- Largest Contentful Paint: 0.2s
-- Total Blocking Time: 0ms
-- Cumulative Layout Shift: 0.048
-
-These results demonstrate that the application performs efficiently, loads quickly, and provides a smooth user experience across different devices.
-Performance optimisation was supported by efficient asset usage, responsive design techniques, and minimal reliance on external libraries.
-
-
-## Bugs and Fixes
-
-### Battle System Lock Issue
-
-**Issue/Cause:**  
-After implementing the coin reward system, the battle controls stopped responding once a match ended. The user was unable to continue interacting with the game.
-The battle state was controlled using a `locked` flag:
-
-**Issue/Cause:**  
-### Bug: Battle Page Image Sizing
-- Images appeared too large and were partially cut off during battles
-- Issue caused by incorrect CSS selector not matching dynamically generated elements
-- Resolved by targeting `#battle .card img`
-- Updated styling to use `object-fit: contain` for proper scaling
-- Images now display consistently across all battle cards
-
-
-
-
-```javascript
-battle.locked = true;
-
-### Responsive Testing
-
-- Tested on different screen sizes  
-- Layout adjusts correctly on smaller screens  
-- Navigation remains usable on mobile devices  
+- Performance: 99 (Mobile) / 100 (Desktop)  
+- Accessibility: 100  
+- Best Practices: 100  
+- SEO: 90  
 
 ---
 
-## Performance
+## Bugs and Fixes
 
-Performance was considered during development:
+### Battle Image Sizing Issue
 
-- Optimised image usage  
-- Minimal external dependencies  
-- Efficient DOM updates for gameplay  
+![Battle Screen Fix](assets/images/screenshots/battle-screen.png)
+
+- Images appeared too large and were cut off  
+- Issue caused by incorrect CSS selector  
+- Fixed using `#battle .card img`  
+- Applied `object-fit: contain`  
+
+---
+
+## Responsive Testing
+
+![Desktop View](assets/images/screenshots/pc-screen.png)
+
+- Layout tested across multiple screen sizes  
+- Mobile, tablet, and desktop compatibility confirmed  
 
 ---
 
@@ -267,8 +251,12 @@ https://luke-smith92.github.io/Troublesome-Dimensions/
 
 ### Media
 
-- Images sourced from **Pixabay** and other free-use platforms  
+- Images sourced from Pixabay and other free-use platforms  
+
 
 ### Acknowledgements
 
-- Assistance and guidance provided through AI support tools  
+- Assistance and guidance provided through various learning resources  
+- Code Institute course materials and Discord community support  
+- Online research using Google  
+- AI tools used to support debugging, problem-solving, and code explanations  
