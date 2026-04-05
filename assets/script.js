@@ -346,6 +346,8 @@ function setupBreakingNews(){
 /* --------- Init --------- */
 document.addEventListener("DOMContentLoaded", ()=>{
   DEFAULT_BG = getComputedStyle(document.body).background;
+  $("loginBackBtn")?.addEventListener("click", ()=> show("home"));
+  $("returnHomeBtn")?.addEventListener("click", ()=> show("home"));
 
   $("titleHome")?.addEventListener("click", (e)=>{
     e.preventDefault();

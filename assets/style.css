@@ -43,6 +43,37 @@ a { color: inherit; }
 
 .view { width: 100%; }
 
+.error-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 30px 20px;
+}
+
+.error-box{
+  width: min(700px, 92vw);
+  text-align: center;
+  background: rgba(8, 12, 22, 0.45);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+  backdrop-filter: blur(4px);
+  border-radius: 18px;
+  padding: 40px 28px;
+}
+
+.error-box h3{
+  margin: 0 0 14px;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: var(--gold);
+}
+
+.error-box p{
+  margin: 0 0 24px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.92);
+}
 /* ===== Navigation ===== */
 .main-nav{
   display: grid;
