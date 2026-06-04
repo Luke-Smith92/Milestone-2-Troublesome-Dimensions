@@ -364,7 +364,11 @@ a { color: inherit; }
   -webkit-text-fill-color: transparent;
 
   animation: dimensionShift 8s ease infinite;
-  text-shadow: 0 0 12px rgba(255,255,255,.15);
+  text-shadow:
+ text-shadow:
+  0 0 4px rgba(0,0,0,.8),
+  0 0 8px rgba(0,0,0,.6),
+  0 0 12px rgba(255,255,255,.15);
 }
 
 .portal-tooltip{
