@@ -99,10 +99,6 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 
 ![Store](assets/images/screenshots/store.png)
 
-### Store
-
-![Store](assets/images/screenshots/store.png)
-
 - Players can spend earned coins
 - Additional card packs can be unlocked
 - Provides a foundation for future progression systems
@@ -126,9 +122,6 @@ Future improvements could include:
 
 ![404 Page](assets/images/screenshots/login-404page.png)
 
-### Custom 404 Page
-
-![404 Page](assets/images/screenshots/login-404page.png)
 
 Troublesome Dimensions is built as a single-page application rather than using multiple separate HTML pages.
 
@@ -139,23 +132,30 @@ The page remains consistent with the fantasy style of the project and provides a
 
 ---
 
-## Wireframes
+## Design Planning and Wireframes
 
-Wireframes were not formally created for this project.  
+Formal wireframes were not created for this project.
 
-Instead, the layout and structure were designed directly in the browser using an iterative development approach. This allowed for continuous visual adjustments and improvements based on testing and usability.
+Instead, the layout and structure were designed directly in the browser using an iterative development approach. This allowed features, layouts and styling to be adjusted throughout development based on testing, usability and overall user experience.
 
-However, the design followed a clear structure:
+The design followed a clear structure:
 
-- Left panel: Game lore / introduction  
-- Center: Main portal interaction (call-to-action)  
-- Right panel: News / additional content  
-- Separate views for:
-  - Card selection  
-  - Battle screen  
-  - Store  
+- Left panel: Game lore and introduction
+- Centre panel: Main portal interaction and call-to-action
+- Right panel: Breaking News section for world-building and immersion
 
-Future development would include creating low-fidelity wireframes during the planning phase to better visualise layout and user flow before implementation.
+Additional views were planned and developed for:
+
+- Card selection
+- Battle screen
+- Store
+- Custom 404 page
+
+The portal was intentionally positioned in the centre of the homepage to make it immediately obvious where users should begin. Navigation was kept simple to reduce confusion and allow players to move between sections easily.
+
+The final implementation closely follows the original planned layout and was refined throughout development to improve accessibility, responsiveness and usability across different devices.
+
+
 
 ---
 
@@ -185,6 +185,15 @@ Future development would include creating low-fidelity wireframes during the pla
 
 To assess functionality, usability, and responsiveness, both manual and automated testing methods were used.
 
+
+### Manual and Automated Testing
+
+Manual testing involves a user interacting with the website and checking that features work as expected. This was useful for testing gameplay, navigation, responsiveness and overall user experience.
+
+Automated testing uses software tools to analyse code and identify potential issues. This project used HTML validation, CSS validation, JSHint and Lighthouse testing to help identify problems before deployment.
+
+Using both methods helped ensure the project was functional, responsive and free from major issues.
+
 ### Manual Testing
 
 ![Mobile View](assets/images/screenshots/mobile-screen.png)
@@ -204,7 +213,7 @@ To assess functionality, usability, and responsiveness, both manual and automate
 - Lighthouse  
 - HTML Validator  
 - CSS Validator  
-
+- Jshint
 ---
 
 ## HTML Validation
@@ -287,13 +296,6 @@ Overall, testing confirmed that the application is stable, responsive, and provi
 - Fixed using `#battle .card img`  
 - Applied `object-fit: contain`  
 
-## Bugs and Fixes
-
-### Battle Image Sizing Issue
-- Images appeared too large and were cut off during battles  
-- Issue caused by an incorrect CSS selector not matching the dynamically generated battle cards  
-- Fixed by targeting `#battle .card img`  
-- Applied `object-fit: contain` so the full character image displayed correctly  
 
 ---
 
@@ -411,6 +413,18 @@ https://luke-smith92.github.io/Troublesome-Dimensions/
 2. Open the project folder in VS Code  
 3. Launch with Live Server or open `index.html` in a browser  
 
+
+### Final Deployment Checks
+
+Before deployment the project was checked for:
+
+- Broken internal links
+- Missing images
+- Navigation issues
+- Console errors
+- Unused code
+
+Any issues found during testing were corrected before the final deployment.
 ---
 
 ## Credits
