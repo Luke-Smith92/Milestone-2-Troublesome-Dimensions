@@ -1,28 +1,26 @@
-/* ------------ Images Base ------------- */
 const IMG_BASE = "assets/images/";
 
-/* ------------ Cards ------------- */
 const CARDS = [
-  { id:"darkelf",  name:"Dark Elf",  type:"Dark", img:"darkelf.jpg", maxHp:110,
-    attacks:[ {name:"Shadow Dagger",power:18,accuracy:.95}, {name:"Night Veil",power:28,accuracy:.8} ] },
+  { id: "darkelf", name: "Dark Elf", type: "Dark", img: "darkelf.jpg", maxHp: 110,
+    attacks: [{ name: "Shadow Dagger", power: 18, accuracy: 0.95 }, { name: "Night Veil", power: 28, accuracy: 0.8 }] },
 
-  { id:"fire-dragon", name:"Fire Dragon", type:"Fire", img:"fire-dragon.jpg", maxHp:130,
-    attacks:[ {name:"Flame Bite",power:22,accuracy:.90}, {name:"Inferno Burst",power:34,accuracy:.70} ] },
+  { id: "fire-dragon", name: "Fire Dragon", type: "Fire", img: "fire-dragon.jpg", maxHp: 130,
+    attacks: [{ name: "Flame Bite", power: 22, accuracy: 0.90 }, { name: "Inferno Burst", power: 34, accuracy: 0.70 }] },
 
-  { id:"lightning-drake", name:"Lightning Drake", type:"Lightning", img:"lighting-drake.png", maxHp:120,
-    attacks:[ {name:"Chain Spark",power:21,accuracy:.90}, {name:"Tempest",power:33,accuracy:.65} ] },
+  { id: "lightning-drake", name: "Lightning Drake", type: "Lightning", img: "lighting-drake.png", maxHp: 120,
+    attacks: [{ name: "Chain Spark", power: 21, accuracy: 0.90 }, { name: "Tempest", power: 33, accuracy: 0.65 }] },
 
-  { id:"orc", name:"Orc", type:"Earth", img:"orc-jim-cooper.jpg", maxHp:125,
-    attacks:[ {name:"Brutal Swing",power:20,accuracy:.92}, {name:"War Cry",power:28,accuracy:.80} ] },
+  { id: "orc", name: "Orc", type: "Earth", img: "orc-jim-cooper.jpg", maxHp: 125,
+    attacks: [{ name: "Brutal Swing", power: 20, accuracy: 0.92 }, { name: "War Cry", power: 28, accuracy: 0.80 }] },
 
-  { id:"troll", name:"Troll", type:"Earth", img:"troll-jcope.jpg", maxHp:140,
-    attacks:[ {name:"Club Smash",power:20,accuracy:.90}, {name:"Boulder Throw",power:30,accuracy:.75} ] },
+  { id: "troll", name: "Troll", type: "Earth", img: "troll-jcope.jpg", maxHp: 140,
+    attacks: [{ name: "Club Smash", power: 20, accuracy: 0.90 }, { name: "Boulder Throw", power: 30, accuracy: 0.75 }] },
 
-  { id:"wood-elf", name:"Wood Elf", type:"Nature", img:"woodelf.jpg", maxHp:105,
-    attacks:[ {name:"Arrow Volley",power:19,accuracy:.93}, {name:"Vine Snare",power:27,accuracy:.82} ] },
+  { id: "wood-elf", name: "Wood Elf", type: "Nature", img: "woodelf.jpg", maxHp: 105,
+    attacks: [{ name: "Arrow Volley", power: 19, accuracy: 0.93 }, { name: "Vine Snare", power: 27, accuracy: 0.82 }] },
 
-  { id:"paladin", name:"Paladin", type:"Light", img:"paladin-jimmy-f.png", maxHp:115,
-    attacks:[ {name:"Smite",power:20,accuracy:.92}, {name:"Holy Nova",power:31,accuracy:.72} ] },
+  { id: "paladin", name: "Paladin", type: "Light", img: "paladin-jimmy-f.png", maxHp: 115,
+    attacks: [{ name: "Smite", power: 20, accuracy: 0.92 }, { name: "Holy Nova", power: 31, accuracy: 0.72 }] },
 ];
 
 const ARENA_BACKGROUNDS = [
@@ -33,90 +31,121 @@ const ARENA_BACKGROUNDS = [
   "waterfalls.jpg"
 ];
 
-/* Packs for ownership */
 const PACKS = [
-  { id:"demo",    name:"Demo Pack",    price:0,   cards:["darkelf","fire-dragon"] },
-  { id:"starter", name:"Starter Pack", price:200, cards:["wood-elf","paladin"] },
-  { id:"beasts",  name:"Beasts Pack",  price:300, cards:["lightning-drake","troll"] },
+  { id: "demo", name: "Demo Pack", price: 0, cards: ["darkelf", "fire-dragon"] },
+  { id: "starter", name: "Starter Pack", price: 200, cards: ["wood-elf", "paladin"] },
+  { id: "beasts", name: "Beasts Pack", price: 300, cards: ["lightning-drake", "troll"] },
 ];
 
-/* --------- Utils / State --------- */
-const views = ["home","select","battle","store","login"];
+const views = ["home", "select", "battle", "store", "error404"];
 const $ = id => document.getElementById(id);
-const rand = arr => arr[Math.floor(Math.random()*arr.length)];
-const coinEls = [ $("coinsHome"), $("coinsSelect"), $("coinsBattle"), $("coinsStore") ];
+const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
 let DEFAULT_BG = "";
 let save = loadSave();
+let battle = null;
 
-function loadSave(){
-  const s = JSON.parse(localStorage.getItem("aca-save") || "null");
-  if (s && s.version === 1) return s;
-  const fresh = { version:1, coins:300, ownedPacks:["demo","starter"] };
-  localStorage.setItem("aca-save", JSON.stringify(fresh));
-  return fresh;
+function loadSave() {
+  const savedData = JSON.parse(localStorage.getItem("aca-save") || "null");
+
+  if (savedData && savedData.version === 1) {
+    return savedData;
+  }
+
+  const freshSave = {
+    version: 1,
+    coins: 300,
+    ownedPacks: ["demo", "starter"]
+  };
+
+  localStorage.setItem("aca-save", JSON.stringify(freshSave));
+  return freshSave;
 }
 
-function persist(){
+function persist() {
   localStorage.setItem("aca-save", JSON.stringify(save));
 }
 
-function ownedCardIds(){
-  const set = new Set();
-  save.ownedPacks.forEach(pid=>{
-    const p = PACKS.find(x=>x.id===pid);
-    if (p) p.cards.forEach(c=>set.add(c));
+function ownedCardIds() {
+  const ownedCards = new Set();
+
+  save.ownedPacks.forEach(packId => {
+    const pack = PACKS.find(item => item.id === packId);
+
+    if (pack) {
+      pack.cards.forEach(cardId => ownedCards.add(cardId));
+    }
   });
-  return [...set];
+
+  return [...ownedCards];
 }
 
-function getCard(id){
-  return CARDS.find(c=>c.id===id);
+function getCard(id) {
+  return CARDS.find(card => card.id === id);
 }
 
-function updateCoinsUI(){
-  coinEls.forEach(el => el && (el.textContent = save.coins));
+function updateCoinsUI() {
+  const coinEls = [
+    $("coinsHome"),
+    $("coinsSelect"),
+    $("coinsBattle"),
+    $("coinsStore")
+  ];
+
+  coinEls.forEach(el => {
+    if (el) {
+      el.textContent = save.coins;
+    }
+  });
 }
 
-/* --------- Router --------- */
-function show(id){
-  views.forEach(v => $(v)?.classList.add("hidden"));
+function show(id) {
+  views.forEach(view => {
+    $(view)?.classList.add("hidden");
+  });
+
   $(id)?.classList.remove("hidden");
 
-  if (id !== "battle") restoreBackground();
+  if (id !== "battle") {
+    restoreBackground();
+  }
 
   updateCoinsUI();
 }
 
-/* --------- Background helpers --------- */
-function setArenaBackground(){
+function setArenaBackground() {
   const src = rand(ARENA_BACKGROUNDS);
   document.body.style.background = `url('${IMG_BASE}${src}') center/cover no-repeat fixed`;
 }
-function restoreBackground(){
-  if (DEFAULT_BG) document.body.style.background = DEFAULT_BG;
+
+function restoreBackground() {
+  if (DEFAULT_BG) {
+    document.body.style.background = DEFAULT_BG;
+  }
 }
 
-/* --------- Home → Select --------- */
-function enterArena(){
+function enterArena() {
   renderSelect();
   show("select");
 }
 
-/* --------- Select --------- */
-function renderSelect(){
+function renderSelect() {
   const grid = $("selectGrid");
   grid.innerHTML = "";
 
-  const ids = ownedCardIds();
-  const visible = [...new Set([...ids, ...CARDS.map(c=>c.id)])];
+  const ownedIds = ownedCardIds();
+  const visibleCards = [...new Set([...ownedIds, ...CARDS.map(card => card.id)])];
 
-  visible.forEach(id=>{
+  visibleCards.forEach(id => {
     const card = getCard(id);
-    if (!card) return;
-    const owned = ids.includes(id);
 
+    if (!card) {
+      return;
+    }
+
+    const owned = ownedIds.includes(id);
     const div = document.createElement("div");
+
     div.className = "card";
     div.innerHTML = `
       <h4>${card.name}</h4>
@@ -127,55 +156,58 @@ function renderSelect(){
       </button>
     `;
 
-    div.querySelector("button").onclick = ()=> owned && startBattle(card.id);
+    div.querySelector("button").onclick = () => {
+      if (owned) {
+        startBattle(card.id);
+      }
+    };
+
     grid.appendChild(div);
   });
 }
 
-/* --------- Battle --------- */
-let battle = null;
-
-function startBattle(playerId){
+function startBattle(playerId) {
   const player = structuredClone(getCard(playerId));
-  const aiPool = CARDS.filter(c=>c.id!==playerId);
+  const aiPool = CARDS.filter(card => card.id !== playerId);
   const ai = structuredClone(rand(aiPool));
 
-  battle = { 
-  player, 
-  ai, 
-  pHp:player.maxHp, 
-  aHp:ai.maxHp, 
-  locked:false,
-  rewarded:false
-};
+  battle = {
+    player,
+    ai,
+    pHp: player.maxHp,
+    aHp: ai.maxHp,
+    locked: false,
+    rewarded: false
+  };
 
   setArenaBackground();
   renderBattle();
   show("battle");
 }
 
-function renderBattle(){
-  const {player, ai} = battle;
+function renderBattle() {
+  const { player, ai } = battle;
 
   $("playerZone").innerHTML = cardBattleHtml("You", player, "playerHp");
   $("aiZone").innerHTML = cardBattleHtml("Invader", ai, "aiHp");
+
   updateHpBars();
 
   const row = $("attackRow");
   row.innerHTML = "";
 
-  player.attacks.forEach((atk, i)=>{
-    const b = document.createElement("button");
-    b.className = "btn";
-    b.textContent = `${atk.name} (${atk.power})`;
-    b.onclick = () => playerTurn(i);
-    row.appendChild(b);
+  player.attacks.forEach((attack, index) => {
+    const button = document.createElement("button");
+    button.className = "btn";
+    button.textContent = `${attack.name} (${attack.power})`;
+    button.onclick = () => playerTurn(index);
+    row.appendChild(button);
   });
 
   $("resultText").textContent = "";
 }
 
-function cardBattleHtml(label, card, hpId){
+function cardBattleHtml(label, card, hpId) {
   return `
     <div class="card">
       <h4>${label}</h4>
@@ -186,71 +218,56 @@ function cardBattleHtml(label, card, hpId){
   `;
 }
 
-function updateHpBars(){
+function updateHpBars() {
   $("playerHp").style.width = `${(battle.pHp / battle.player.maxHp) * 100}%`;
   $("aiHp").style.width = `${(battle.aHp / battle.ai.maxHp) * 100}%`;
 }
 
-function playerTurn(i){
-  if (battle.locked) return;
+function playerTurn(index) {
+  if (battle.locked) {
+    return;
+  }
+
   battle.locked = true;
 
-  const atk = battle.player.attacks[i];
-  if (Math.random() <= atk.accuracy) {
-    battle.aHp = Math.max(0, battle.aHp - atk.power);
+  const attack = battle.player.attacks[index];
+
+  if (Math.random() <= attack.accuracy) {
+    battle.aHp = Math.max(0, battle.aHp - attack.power);
   }
 
   updateHpBars();
-  function checkEnd(){
-  if (battle.pHp <= 0 || battle.aHp <= 0){
 
-    if (battle.pHp <= 0 && battle.aHp <= 0) {
-      $("resultText").textContent = "It's a draw!";
-    } 
-    else if (battle.pHp <= 0) {
-      $("resultText").textContent = "You lose!";
-    } 
-    else {
-      // ✅ ONLY reward once
-      if (!battle.rewarded) {
-        save.coins += 50;
-        persist();
-        battle.rewarded = true;
-      }
-      $("resultText").textContent = "You win! +50 coins";
-    }
-
-    battle.locked = false;
-    return true;
+  if (checkEnd()) {
+    return;
   }
-  return false;
-}
 
   setTimeout(aiTurn, 700);
 }
 
-function aiTurn(){
-  const atk = rand(battle.ai.attacks);
-  if (Math.random() <= atk.accuracy) {
-    battle.pHp = Math.max(0, battle.pHp - atk.power);
+function aiTurn() {
+  const attack = rand(battle.ai.attacks);
+
+  if (Math.random() <= attack.accuracy) {
+    battle.pHp = Math.max(0, battle.pHp - attack.power);
   }
 
   updateHpBars();
- 
+
+  if (checkEnd()) {
+    return;
+  }
 
   battle.locked = false;
 }
 
-function checkEnd(){
-  if (battle.pHp <= 0 || battle.aHp <= 0){
-
+function checkEnd() {
+  if (battle.pHp <= 0 || battle.aHp <= 0) {
     if (battle.pHp <= 0 && battle.aHp <= 0) {
       $("resultText").textContent = "It's a draw!";
-    } 
-    else if (battle.pHp <= 0) {
+    } else if (battle.pHp <= 0) {
       $("resultText").textContent = "You lose!";
-    } 
-    else {
+    } else {
       if (!battle.rewarded) {
         save.coins += 50;
         persist();
@@ -261,40 +278,42 @@ function checkEnd(){
     }
 
     battle.locked = false;
+    updateCoinsUI();
     return true;
   }
 
   return false;
 }
 
-/* --------- Store --------- */
-function renderStore(){
+function renderStore() {
   const wrap = $("packList");
   wrap.innerHTML = "";
 
-  PACKS.forEach(p=>{
-    const owned = save.ownedPacks.includes(p.id);
-
+  PACKS.forEach(pack => {
+    const owned = save.ownedPacks.includes(pack.id);
     const div = document.createElement("div");
+
     div.className = "card";
     div.innerHTML = `
-      <h4>${p.name}</h4>
-      <p class="muted">Contains: ${p.cards.map(id=>getCard(id).name).join(", ")}</p>
-      <p class="muted">Price: ${p.price} 🪙</p>
+      <h4>${pack.name}</h4>
+      <p class="muted">Contains: ${pack.cards.map(id => getCard(id).name).join(", ")}</p>
+      <p class="muted">Price: ${pack.price} 🪙</p>
       <button class="btn ${owned ? "" : "primary"}" ${owned ? "disabled" : ""}>
         ${owned ? "Owned" : "Buy"}
       </button>
     `;
 
-    const btn = div.querySelector("button");
-    if (!owned){
-      btn.onclick = ()=>{
-        if (save.coins < p.price) {
+    const button = div.querySelector("button");
+
+    if (!owned) {
+      button.onclick = () => {
+        if (save.coins < pack.price) {
           alert("Not enough coins!");
           return;
         }
-        save.coins -= p.price;
-        save.ownedPacks.push(p.id);
+
+        save.coins -= pack.price;
+        save.ownedPacks.push(pack.id);
         persist();
         updateCoinsUI();
         renderStore();
@@ -305,38 +324,46 @@ function renderStore(){
   });
 }
 
-/* --------- News rotation --------- */
-function setupBreakingNews(){
+function setupBreakingNews() {
   const wrap = $("news-container");
-  if (!wrap) return;
+
+  if (!wrap) {
+    return;
+  }
 
   const cards = Array.from(wrap.querySelectorAll(".news-article"));
-  const VISIBLE = 3;
+  const visibleCount = 3;
   let index = 0;
   let timer;
 
-  function layout(start=0){
-    cards.forEach((card, i)=>{
-      const show = i >= start && i < start + VISIBLE;
-      card.style.display = show ? "block" : "none";
-      card.style.opacity = show ? 1 : 0;
+  function layout(start = 0) {
+    cards.forEach((card, i) => {
+      const shouldShow = i >= start && i < start + visibleCount;
+      card.style.display = shouldShow ? "block" : "none";
+      card.style.opacity = shouldShow ? 1 : 0;
       card.style.transition = "opacity .35s ease";
     });
   }
 
-  function tick(){
+  function tick() {
     index = (index + 1) % cards.length;
-    if (index > cards.length - VISIBLE) index = 0;
+
+    if (index > cards.length - visibleCount) {
+      index = 0;
+    }
+
     layout(index);
   }
 
-  function start(){
+  function start() {
     stop();
     timer = setInterval(tick, 5000);
   }
 
-  function stop(){
-    if (timer) clearInterval(timer);
+  function stop() {
+    if (timer) {
+      clearInterval(timer);
+    }
   }
 
   layout(0);
@@ -346,41 +373,49 @@ function setupBreakingNews(){
   document.querySelector(".news-panel")?.addEventListener("mouseleave", start);
 }
 
-/* --------- Init --------- */
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
   DEFAULT_BG = getComputedStyle(document.body).background;
-  $("loginBackBtn")?.addEventListener("click", ()=> show("home"));
-  $("returnHomeBtn")?.addEventListener("click", ()=> show("home"));
 
-  $("titleHome")?.addEventListener("click", (e)=>{
-    e.preventDefault();
+  $("titleHome")?.addEventListener("click", event => {
+    event.preventDefault();
     show("home");
   });
 
-  document.querySelectorAll(".nav-link").forEach(link=>{
-    link.addEventListener("click", (e)=>{
-      e.preventDefault();
+  document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", event => {
+      event.preventDefault();
+
       const view = link.getAttribute("data-view");
-      if (view === "select") renderSelect();
-      if (view === "store") renderStore();
+
+      if (view === "select") {
+        renderSelect();
+      }
+
+      if (view === "store") {
+        renderStore();
+      }
+
       show(view);
     });
   });
 
   $("shimmerCta")?.addEventListener("click", enterArena);
+  $("selectBackBtn")?.addEventListener("click", () => show("home"));
+  $("battleHomeBtn")?.addEventListener("click", () => show("home"));
 
-  $("selectBackBtn")?.addEventListener("click", ()=> show("home"));
-  $("battleHomeBtn")?.addEventListener("click", ()=> show("home"));
-  $("battleAgainBtn")?.addEventListener("click", ()=> {
+  $("battleAgainBtn")?.addEventListener("click", () => {
     renderSelect();
     show("select");
   });
-  $("battleStoreBtn")?.addEventListener("click", ()=> {
+
+  $("battleStoreBtn")?.addEventListener("click", () => {
     renderStore();
     show("store");
   });
-  $("storeBackBtn")?.addEventListener("click", ()=> show("home"));
-  $("loginBackBtn")?.addEventListener("click", ()=> show("home"));
+
+  $("storeBackBtn")?.addEventListener("click", () => show("home"));
+  $("error404BackBtn")?.addEventListener("click", () => show("home"));
+  $("returnHomeBtn")?.addEventListener("click", () => show("home"));
 
   updateCoinsUI();
   show("home");

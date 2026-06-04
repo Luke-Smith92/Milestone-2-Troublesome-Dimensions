@@ -99,8 +99,26 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 
 ![Store](assets/images/screenshots/store.png)
 
-- Purchase card packs using coins  
-- Unlock new characters  
+### Store
+
+![Store](assets/images/screenshots/store.png)
+
+- Players can spend earned coins
+- Additional card packs can be unlocked
+- Provides a foundation for future progression systems
+
+### Store Expansion
+
+The current store system provides a basic method for unlocking additional cards using earned coins.
+
+Future improvements could include:
+
+- Additional card packs
+- Rare and legendary cards
+- Cosmetic unlocks
+- Character upgrades
+- Daily rewards
+- Expanded progression systems
 
 ---
 
@@ -108,8 +126,16 @@ This project focuses on building a strong front-end experience using **HTML, CSS
 
 ![404 Page](assets/images/screenshots/login-404page.png)
 
-- Custom themed 404 page  
-- Keeps design consistent with the game  
+### Custom 404 Page
+
+![404 Page](assets/images/screenshots/login-404page.png)
+
+Troublesome Dimensions is built as a single-page application rather than using multiple separate HTML pages.
+
+Because of this, the custom 404 page is implemented as a hidden view within the application instead of a standalone HTML page. If a user attempts to access a page or dimension that does not exist, the themed 404 view can be displayed without leaving the application.
+
+The page remains consistent with the fantasy style of the project and provides a clear **Return Home** button. This allows users to return to the main page without relying on browser navigation buttons, helping improve usability and meeting the project requirements.
+
 
 ---
 

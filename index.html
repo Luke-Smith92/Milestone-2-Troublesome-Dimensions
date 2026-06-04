@@ -9,7 +9,6 @@
 </head>
 
 <body>
-  <!-- NAV -->
   <nav class="main-nav" aria-label="Primary">
     <div></div>
 
@@ -20,18 +19,14 @@
     <div class="nav-links">
       <a href="#" class="nav-link" data-view="select">My Cards</a>
       <a href="#" class="nav-link" data-view="store">Store</a>
-      <a href="#" class="nav-link" data-view="login">Login</a>
+      <a href="#" class="nav-link" data-view="error404">404</a>
       <div class="coins">🪙 <span id="coinsHome">0</span></div>
     </div>
   </nav>
 
-  <!-- APP CONTAINER -->
   <main class="container">
-
-    <!-- HOME -->
     <section id="home" class="view">
       <div class="home-layout">
-
         <div class="home-panel lore-panel">
           <h2 class="home-lore-title">The Rift Has Opened</h2>
 
@@ -61,14 +56,12 @@
           </button>
 
           <p class="home-hint muted small">
-             Choose your hero and fight your way through the rift to push back the invading forces.
+            Choose your hero and fight your way through the rift to push back the invading forces.
           </p>
 
           <p class="home-hint small">
-             Earn coins by defeating enemies and use them in the Arcane Emporium to unlock new heroes.
+            Earn coins by defeating enemies and use them in the Arcane Emporium to unlock new heroes.
           </p>
-          
-          
         </div>
 
         <aside class="home-panel news-panel">
@@ -112,21 +105,19 @@
             </article>
           </div>
         </aside>
-
       </div>
     </section>
 
-    <!-- SELECT VIEW -->
     <section id="select" class="view hidden">
       <header class="topbar">
         <button id="selectBackBtn" class="btn">⟵ Back</button>
         <h2>My Cards</h2>
         <div class="coins">🪙 <span id="coinsSelect">0</span></div>
       </header>
+
       <div id="selectGrid" class="grid" aria-live="polite"></div>
     </section>
 
-    <!-- BATTLE VIEW -->
     <section id="battle" class="view hidden">
       <header class="topbar">
         <button id="battleHomeBtn" class="btn">⟵ Home</button>
@@ -150,40 +141,37 @@
       </div>
     </section>
 
-    <!-- STORE VIEW -->
     <section id="store" class="view hidden">
       <header class="topbar">
         <button id="storeBackBtn" class="btn">⟵ Back</button>
         <h2>Arcane Emporium</h2>
         <div class="coins">🪙 <span id="coinsStore">0</span></div>
       </header>
+
       <div id="packList" class="grid"></div>
     </section>
 
-   <section id="login" class="view hidden">
-  <header class="topbar">
-    <h2>404 - Page Not Found</h2>
-    <div></div>
-  </header>
+    <section id="error404" class="view hidden">
+      <header class="topbar">
+        <button id="error404BackBtn" class="btn">⟵ Home</button>
+        <h2>404 - Page Not Found</h2>
+        <div></div>
+      </header>
 
-  <div class="error-page">
-    <div class="error-box">
-      <h3>The dimension you tried to enter does not exist</h3>
-      <p class="muted">
-        The portal has failed or the page you are looking for cannot be found.
-      </p>
-      <button id="returnHomeBtn" class="btn primary">Return Home</button>
-    </div>
-  </div>
-</section>
+      <div class="error-page">
+        <div class="error-box">
+          <h3>The dimension you tried to enter does not exist</h3>
+          <p class="muted">
+            The portal has failed or the page you are looking for cannot be found.
+          </p>
+          <button id="returnHomeBtn" class="btn primary">Return Home</button>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- SITE FOOTER -->
   <footer class="site-footer">
     <p>© 2026 Troublesome Dimensions — Created by Luke Smith</p>
-    <p>
-      <a href="#attributions">Attributions</a>
-    </p>
   </footer>
 </body>
 </html>
