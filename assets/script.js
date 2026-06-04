@@ -236,7 +236,7 @@ function aiTurn(){
   }
 
   updateHpBars();
-  if (checkEnd()) return;
+ 
 
   battle.locked = false;
 }
@@ -251,16 +251,19 @@ function checkEnd(){
       $("resultText").textContent = "You lose!";
     } 
     else {
-      save.coins += 50;
-      persist();
+      if (!battle.rewarded) {
+        save.coins += 50;
+        persist();
+        battle.rewarded = true;
+      }
+
       $("resultText").textContent = "You win! +50 coins";
     }
 
-    // Reset lock so the game remains interactive
     battle.locked = false;
-
     return true;
   }
+
   return false;
 }
 
