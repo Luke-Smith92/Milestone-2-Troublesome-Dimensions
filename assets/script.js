@@ -1,5 +1,7 @@
+// Sets the folder path used for all card and background images.
 const IMG_BASE = "assets/images/";
 
+// Stores all playable cards, including their stats, images and attacks.
 const CARDS = [
   { id: "darkelf", name: "Dark Elf", type: "Dark", img: "darkelf.jpg", maxHp: 110,
     attacks: [{ name: "Shadow Dagger", power: 18, accuracy: 0.95 }, { name: "Night Veil", power: 28, accuracy: 0.8 }] },
@@ -23,6 +25,7 @@ const CARDS = [
     attacks: [{ name: "Smite", power: 20, accuracy: 0.92 }, { name: "Holy Nova", power: 31, accuracy: 0.72 }] },
 ];
 
+// Stores the possible arena background images used during battles.
 const ARENA_BACKGROUNDS = [
   "misty-forest.jpg",
   "vulcanic-landscape.jpg",
@@ -31,20 +34,27 @@ const ARENA_BACKGROUNDS = [
   "waterfalls.jpg"
 ];
 
+// Stores the card packs available in the store.
 const PACKS = [
   { id: "demo", name: "Demo Pack", price: 0, cards: ["darkelf", "fire-dragon"] },
   { id: "starter", name: "Starter Pack", price: 200, cards: ["wood-elf", "paladin"] },
   { id: "beasts", name: "Beasts Pack", price: 300, cards: ["lightning-drake", "troll"] },
 ];
 
+// Stores the different page sections that can be shown or hidden.
 const views = ["home", "select", "battle", "store", "error404"];
+
+// Shortcut function to get an element by its id.
 const $ = id => document.getElementById(id);
+
+// Picks a random item from an array.
 const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
 let DEFAULT_BG = "";
 let save = loadSave();
 let battle = null;
 
+// Loads saved player data from local storage, or creates a new save if none exists.
 function loadSave() {
   const savedData = JSON.parse(localStorage.getItem("aca-save") || "null");
 
@@ -62,10 +72,12 @@ function loadSave() {
   return freshSave;
 }
 
+// Saves the current player data to local storage.
 function persist() {
   localStorage.setItem("aca-save", JSON.stringify(save));
 }
 
+// Works out which cards the player owns based on their unlocked packs.
 function ownedCardIds() {
   const ownedCards = new Set();
 
@@ -80,10 +92,12 @@ function ownedCardIds() {
   return [...ownedCards];
 }
 
+// Finds and returns a card using its id.
 function getCard(id) {
   return CARDS.find(card => card.id === id);
 }
 
+// Updates the coin display across all pages.
 function updateCoinsUI() {
   const coinEls = [
     $("coinsHome"),
@@ -99,6 +113,7 @@ function updateCoinsUI() {
   });
 }
 
+// Shows the selected page section and hides the others.
 function show(id) {
   views.forEach(view => {
     $(view)?.classList.add("hidden");
@@ -113,22 +128,26 @@ function show(id) {
   updateCoinsUI();
 }
 
+// Picks a random arena image and applies it as the page background.
 function setArenaBackground() {
   const src = rand(ARENA_BACKGROUNDS);
   document.body.style.background = `url('${IMG_BASE}${src}') center/cover no-repeat fixed`;
 }
 
+// Restores the original page background after leaving the battle screen.
 function restoreBackground() {
   if (DEFAULT_BG) {
     document.body.style.background = DEFAULT_BG;
   }
 }
 
+// Opens the card selection screen before starting a battle.
 function enterArena() {
   renderSelect();
   show("select");
 }
 
+// Displays all available cards and allows the player to choose an owned card.
 function renderSelect() {
   const grid = $("selectGrid");
   grid.innerHTML = "";
@@ -166,6 +185,7 @@ function renderSelect() {
   });
 }
 
+// Starts a new battle between the chosen player card and a random AI card.
 function startBattle(playerId) {
   const player = structuredClone(getCard(playerId));
   const aiPool = CARDS.filter(card => card.id !== playerId);
@@ -185,6 +205,7 @@ function startBattle(playerId) {
   show("battle");
 }
 
+// Displays the player and AI cards, health bars and attack buttons.
 function renderBattle() {
   const { player, ai } = battle;
 
@@ -207,6 +228,7 @@ function renderBattle() {
   $("resultText").textContent = "";
 }
 
+// Builds the HTML for each battle card.
 function cardBattleHtml(label, card, hpId) {
   return `
     <div class="card">
@@ -218,11 +240,13 @@ function cardBattleHtml(label, card, hpId) {
   `;
 }
 
+// Updates both health bars based on the current HP values.
 function updateHpBars() {
   $("playerHp").style.width = `${(battle.pHp / battle.player.maxHp) * 100}%`;
   $("aiHp").style.width = `${(battle.aHp / battle.ai.maxHp) * 100}%`;
 }
 
+// Handles the player's attack turn and then triggers the AI turn.
 function playerTurn(index) {
   if (battle.locked) {
     return;
@@ -245,6 +269,7 @@ function playerTurn(index) {
   setTimeout(aiTurn, 700);
 }
 
+// Handles the AI attack turn after the player has attacked.
 function aiTurn() {
   const attack = rand(battle.ai.attacks);
 
@@ -261,6 +286,7 @@ function aiTurn() {
   battle.locked = false;
 }
 
+// Checks if either side has won, lost or drawn the battle.
 function checkEnd() {
   if (battle.pHp <= 0 || battle.aHp <= 0) {
     if (battle.pHp <= 0 && battle.aHp <= 0) {
@@ -285,6 +311,7 @@ function checkEnd() {
   return false;
 }
 
+// Renders the store and allows the player to buy new card packs.
 function renderStore() {
   const wrap = $("packList");
   wrap.innerHTML = "";
@@ -324,6 +351,7 @@ function renderStore() {
   });
 }
 
+// Controls the rotating breaking news section on the homepage.
 function setupBreakingNews() {
   const wrap = $("news-container");
 
@@ -336,6 +364,7 @@ function setupBreakingNews() {
   let index = 0;
   let timer;
 
+  // Shows a set number of news cards at one time.
   function layout(start = 0) {
     cards.forEach((card, i) => {
       const shouldShow = i >= start && i < start + visibleCount;
@@ -345,6 +374,7 @@ function setupBreakingNews() {
     });
   }
 
+  // Moves the news display along to the next set of articles.
   function tick() {
     index = (index + 1) % cards.length;
 
@@ -355,11 +385,13 @@ function setupBreakingNews() {
     layout(index);
   }
 
+  // Starts the automatic news rotation.
   function start() {
     stop();
     timer = setInterval(tick, 5000);
   }
 
+  // Stops the automatic news rotation.
   function stop() {
     if (timer) {
       clearInterval(timer);
@@ -373,6 +405,7 @@ function setupBreakingNews() {
   document.querySelector(".news-panel")?.addEventListener("mouseleave", start);
 }
 
+// Runs once the page has loaded and sets up all button and navigation events.
 document.addEventListener("DOMContentLoaded", () => {
   DEFAULT_BG = getComputedStyle(document.body).background;
 
